@@ -526,5 +526,71 @@
         "rank": 10
       }
     ]
+  },
+  {
+    "ts": 1788125808382,
+    "universeSize": 100,
+    "source": "binance-futures-mirror",
+    "breadth": {
+      "TRENDING_UP": 51,
+      "TRENDING_DOWN": 7,
+      "RANGING": 28,
+      "MIXED": 14
+    },
+    "activeSignals": 0,
+    "signalsGenerated": 0,
+    "avgScore": null,
+    "topVolume": [
+      {
+        "symbol": "ETHUSDT",
+        "quoteVolume": 5981051732.64,
+        "rank": 1
+      },
+      {
+        "symbol": "BTCUSDT",
+        "quoteVolume": 5603506956.95,
+        "rank": 2
+      },
+      {
+        "symbol": "SOLUSDT",
+        "quoteVolume": 1659576900.33,
+        "rank": 3
+      },
+      {
+        "symbol": "ZECUSDT",
+        "quoteVolume": 1139984122.91,
+        "rank": 4
+      },
+      {
+        "symbol": "XRPUSDT",
+        "quoteVolume": 740027160.98,
+        "rank": 5
+      },
+      {
+        "symbol": "HYPEUSDT",
+        "quoteVolume": 484218736.03,
+        "rank": 6
+      },
+      {
+        "symbol": "PROMUSDT",
+        "quoteVolume": 482822895.96,
+        "rank": 7
+      },
+      {
+        "symbol": "ZKCUSDT",
+        "quoteVolume": 361662418.54,
+        "rank": 8
+      },
+      {
+        "symbol": "UNIUSDT",
+        "quoteVolume": 360606482.09,
+        "rank": 9
+      },
+      {
+        "symbol": "TRUMPUSDT",
+        "quoteVolume": 352767512.16,
+        "rank": 10
+      }
+    ]
   }
 ]
