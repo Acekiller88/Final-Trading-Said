@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+venv/
+*.log
+.DS_Store
+# replay reports are local analysis artifacts, not dashboard data
+data/replay-report.json

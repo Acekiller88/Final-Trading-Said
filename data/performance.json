@@ -1,0 +1,32 @@
+{
+  "total": 0,
+  "waiting": 0,
+  "triggered": 0,
+  "wins": 0,
+  "losses": 0,
+  "expired": 0,
+  "ambiguous": 0,
+  "cancelled": 0,
+  "winRate": null,
+  "resolvedTrades": 0,
+  "avgRr": null,
+  "avgWinR": null,
+  "profitFactor": null,
+  "avgScore": null,
+  "avgTimeToTpMs": null,
+  "avgTimeToSlMs": null,
+  "maxWinningStreak": 0,
+  "maxLosingStreak": 0,
+  "byDirection": {},
+  "byQuality": {},
+  "byRegime": {},
+  "bySymbol": {},
+  "byScoreRange": {},
+  "window": {
+    "since": null,
+    "until": null,
+    "signalsInWindow": 0
+  },
+  "generatedAt": 1788059713887,
+  "disclaimer": "Win rate = wins / (wins + losses); waiting/expired/ambiguous/cancelled signals are excluded from the denominator. The confluence score is a quality ranking, not a probability. Past performance does not guarantee future results."
+}

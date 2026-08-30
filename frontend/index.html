@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto 15M Signal Scanner — SMC Confluence Dashboard</title>
+<meta name="description" content="Rule-based multi-timeframe crypto signal scanner. Analytical signals only — not financial advice.">
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-icon">📡</span>
+      <div>
+        <h1>Crypto 15M Signal Scanner</h1>
+        <p class="brand-sub">SMC / Confluence · Top-100 USDT Perpetuals · 4H → 1H → 15M</p>
+      </div>
+    </div>
+    <div class="top-status" id="top-status">
+      <span class="chip chip-idle" id="chip-health">…</span>
+      <span class="chip" id="chip-lastscan">last scan —</span>
+      <span class="chip" id="chip-nextscan">next —</span>
+      <span class="chip" id="chip-price-mode">price feed —</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="notice hidden" id="preview-notice">
+    Live data files are unreachable in this embedded preview (sandboxed, no network).
+    Deploy on Cloudflare Pages or run <code>python -m http.server</code> in <code>frontend/</code> for the full dashboard.
+  </div>
+  <div class="notice warn hidden" id="health-notice"></div>
+  <div class="notice disclaimer">
+    <strong>Analysis tool, not advice.</strong> This system generates rule-based analytical
+    signals from public market data. It does <strong>not</strong> execute trades and does
+    <strong>not</strong> guarantee profitability. The confluence score is a quality ranking,
+    <strong>not</strong> a probability.
+  </div>
+
+  <!-- ============ SYSTEM STATUS ============ -->
+  <section id="system-status" class="section">
+    <div class="section-head">
+      <h2>1 · System Status</h2>
+      <span class="muted" id="data-updated">Last data update: —</span>
+    </div>
+    <div class="grid grid-status">
+      <div class="card stat"><span class="stat-label">System</span><span class="stat-value" id="st-system">—</span><span class="stat-sub" id="st-health-sub">—</span></div>
+      <div class="card stat"><span class="stat-label">Last Scan</span><span class="stat-value" id="st-lastscan">—</span><span class="stat-sub" id="st-jitter">—</span></div>
+      <div class="card stat"><span class="stat-label">Next Expected</span><span class="stat-value" id="st-nextscan">—</span><span class="stat-sub">every 15 min</span></div>
+      <div class="card stat"><span class="stat-label">Scan Duration</span><span class="stat-value" id="st-duration">—</span><span class="stat-sub" id="st-symbols">—</span></div>
+      <div class="card stat"><span class="stat-label">Universe</span><span class="stat-value" id="st-universe">—</span><span class="stat-sub" id="st-universe-src">—</span></div>
+      <div class="card stat"><span class="stat-label">API</span><span class="stat-value" id="st-api">—</span><span class="stat-sub" id="st-api-reqs">—</span></div>
+      <div class="card stat"><span class="stat-label">Data Freshness</span><span class="stat-value" id="st-fresh">—</span><span class="stat-sub" id="st-fresh-age">—</span></div>
+      <div class="card stat"><span class="stat-label">Active Signals</span><span class="stat-value" id="st-active">—</span><span class="stat-sub" id="st-active-sub">—</span></div>
+    </div>
+  </section>
+
+  <!-- ============ MARKET OVERVIEW ============ -->
+  <section id="market-overview" class="section">
+    <div class="section-head"><h2>2 · Market Overview <span class="muted small">(4H regime breadth across the universe)</span></h2></div>
+    <div class="grid grid-overview">
+      <div class="card overview-breadth">
+        <h3>4H Regime Breadth</h3>
+        <div class="breadth-bar" id="breadth-bar"></div>
+        <div class="breadth-legend" id="breadth-legend"></div>
+      </div>
+      <div class="card overview-top">
+        <h3>Top Liquidity (24h quote volume)</h3>
+        <ol class="top-list" id="top-volume"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACTIVE SIGNALS ============ -->
+  <section id="active-signals" class="section">
+    <div class="section-head">
+      <h2>3 · Active Signals</h2>
+      <div class="filter-pills" id="active-filter">
+        <button class="pill active" data-q="A+">A+</button>
+        <button class="pill active" data-q="A">A</button>
+        <button class="pill active" data-q="B+">B+</button>
+      </div>
+    </div>
+    <div id="active-empty" class="card empty hidden">No active signals. The engine publishes only
+      high-confluence setups (score ≥ 80) — an empty board means no qualifying structure right now.
+      Zero forced signals is by design.</div>
+    <div class="signal-grid" id="active-grid"></div>
+  </section>
+
+  <!-- ============ RECENT SIGNALS ============ -->
+  <section id="recent-signals" class="section">
+    <div class="section-head"><h2>4 · Recent Signals <span class="muted small">(latest 10, any status)</span></h2></div>
+    <div class="card table-wrap">
+      <table class="table compact" id="recent-table">
+        <thead><tr><th>Time</th><th>Symbol</th><th>Dir</th><th>Quality</th><th>Trigger</th><th>TP</th><th>SL</th><th>RR</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="empty small hidden" id="recent-empty">No signals generated yet — history builds as scans run every 15 minutes.</div>
+    </div>
+  </section>
+
+  <!-- ============ PERFORMANCE ============ -->
+  <section id="performance" class="section">
+    <div class="section-head">
+      <h2>5 · Performance</h2>
+      <div class="filter-pills" id="perf-range">
+        <button class="pill active" data-range="7">7D</button>
+        <button class="pill" data-range="30">30D</button>
+        <button class="pill" data-range="90">90D</button>
+        <button class="pill" data-range="0">ALL</button>
+      </div>
+    </div>
+    <div class="grid grid-perf">
+      <div class="card stat"><span class="stat-label">Total Signals</span><span class="stat-value" id="pf-total">—</span><span class="stat-sub" id="pf-waiting">—</span></div>
+      <div class="card stat"><span class="stat-label">Resolved Trades</span><span class="stat-value" id="pf-resolved">—</span><span class="stat-sub" id="pf-split">—</span></div>
+      <div class="card stat"><span class="stat-label">Win Rate</span><span class="stat-value" id="pf-winrate">—</span><span class="stat-sub" id="pf-winrate-n">—</span></div>
+      <div class="card stat"><span class="stat-label">Profit Factor</span><span class="stat-value" id="pf-pf">—</span><span class="stat-sub">ΣR won ÷ |ΣR lost|</span></div>
+      <div class="card stat"><span class="stat-label">Average RR</span><span class="stat-value" id="pf-rr">—</span><span class="stat-sub" id="pf-score">—</span></div>
+      <div class="card stat"><span class="stat-label">Streaks (W / L)</span><span class="stat-value" id="pf-streaks">—</span><span class="stat-sub" id="pf-times">—</span></div>
+    </div>
+    <div class="grid grid-charts">
+      <div class="card chart-card"><h3>Cumulative resolved trades (R)</h3><div id="chart-equity" class="chart"></div></div>
+      <div class="card chart-card"><h3>Win / loss distribution by quality</h3><div id="chart-quality" class="chart"></div></div>
+      <div class="card chart-card"><h3>LONG vs SHORT</h3><div id="chart-direction" class="chart"></div></div>
+      <div class="card chart-card"><h3>Outcome mix</h3><div id="chart-outcomes" class="chart"></div></div>
+    </div>
+    <p class="muted small">Win rate = wins ÷ (wins + losses). WAITING / EXPIRED / AMBIGUOUS / CANCELLED
+      signals are excluded from the denominator. Sample sizes are shown — small samples are not
+      statistically meaningful. No probability claims are made.</p>
+  </section>
+
+  <!-- ============ SIGNAL HISTORY ============ -->
+  <section id="signal-history" class="section">
+    <div class="section-head"><h2>6 · Signal History</h2></div>
+    <div class="card">
+      <div class="history-controls">
+        <input type="search" id="hist-search" placeholder="Filter symbol…">
+        <div class="filter-pills" id="hist-direction">
+          <button class="pill active" data-d="all">All</button>
+          <button class="pill" data-d="long">LONG</button>
+          <button class="pill" data-d="short">SHORT</button>
+        </div>
+        <div class="filter-pills" id="hist-quality">
+          <button class="pill active" data-q="all">All</button>
+          <button class="pill" data-q="A+">A+</button>
+          <button class="pill" data-q="A">A</button>
+          <button class="pill" data-q="B+">B+</button>
+        </div>
+        <div class="filter-pills" id="hist-outcome">
+          <button class="pill active" data-o="all">All</button>
+          <button class="pill" data-o="WIN">WIN</button>
+          <button class="pill" data-o="LOSS">LOSS</button>
+          <button class="pill" data-o="EXPIRED">EXPIRED</button>
+          <button class="pill" data-o="AMBIGUOUS">AMBIGUOUS</button>
+        </div>
+        <div class="filter-pills" id="hist-range">
+          <button class="pill active" data-range="7">7D</button>
+          <button class="pill" data-range="30">30D</button>
+          <button class="pill" data-range="90">90D</button>
+          <button class="pill" data-range="0">ALL</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table" id="history-table">
+          <thead><tr>
+            <th>Time</th><th>Symbol</th><th>Dir</th><th>Score</th><th>Quality</th>
+            <th>Trigger</th><th>Entry Zone</th><th>TP</th><th>SL</th><th>RR</th>
+            <th>Status</th><th>Outcome</th><th>Duration</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty small hidden" id="history-empty">No signals match the current filters.</div>
+      </div>
+      <div class="muted small" id="history-count"></div>
+    </div>
+  </section>
+
+  <!-- ============ METHODOLOGY ============ -->
+  <section id="methodology" class="section">
+    <div class="section-head"><h2>7 · Methodology</h2></div>
+    <div class="card methodology">
+      <details open><summary>Timeframe model</summary>
+        <p><strong>4H — macro regime.</strong> EMA 20/50/200 stack + ADX classify each pair as
+        TRENDING_UP / TRENDING_DOWN / RANGING / MIXED. RANGING markets are hard-rejected.
+        <strong>1H — directional confirmation.</strong> The same stack must agree with the trade
+        direction. <strong>15M — signal generation.</strong> All entries, stops and targets are
+        derived from 15M structure. 5M is never used as a primary timeframe.</p></details>
+      <details><summary>Market structure (swing → BOS / CHoCH)</summary>
+        <p>Swing highs/lows are 2-bar fractals, only usable once <em>confirmed</em> two bars later
+        (strictly no lookahead). A <strong>BOS</strong> is a <em>close</em> beyond the most recent
+        confirmed swing in the trend direction (continuation). A <strong>CHoCH</strong> is a close
+        against the established trend (character change). Wick breaks never count. HH/HL/LH/LL and
+        equal-high/low pools (ATR tolerance) map the structure sequence.</p></details>
+      <details><summary>Liquidity sweep</summary>
+        <p>A candle wicks beyond a prior confirmed swing high/low (excursion ≤ 1× ATR) but
+        <em>closes back</em> on the original side — a stop-hunt rejection proxy. Real
+        breakout-and-acceptance is not classified as a sweep.</p></details>
+      <details><summary>Displacement · Fair Value Gap · Order Block</summary>
+        <p><strong>Displacement:</strong> candle body ≥ 1.5× ATR (institutional imbalance proxy).
+        <strong>FVG (3-candle model):</strong> candle-3 low leaves a gap above candle-1 high
+        (bullish) or below its low (bearish); gaps smaller than 0.1× ATR are ignored.
+        <strong>Order Block:</strong> the last opposite-colour candle before a displacement that
+        broke structure; zone = that candle's full range. These are price-action proxies — the
+        system does not claim to see real institutional orders.</p></details>
+      <details><summary>Entry, stop, target</summary>
+        <p>Signals are <em>limit-of-intention</em> style: LONG trigger = confirmation-candle high
+        + 0.1× ATR (buy-stop); entry zone = trigger − 0.5× ATR → trigger. A signal stays
+        WAITING_TRIGGER until real price trades through the trigger. Stop = swept invalidation
+        structure ± 0.5× ATR buffer (never a fixed percentage; rejected if &gt; 3.5× ATR).
+        Targets are the nearest <em>real</em> swing-liquidity levels offering RR ≥ 2.5, preferring
+        ≥ 3R when structure allows. Setups whose nearest realistic liquidity cannot fund the RR
+        are rejected — TP is never fabricated.</p></details>
+      <details><summary>Confluence scoring (100 points)</summary>
+        <p>HTF alignment 20 · market structure 20 · liquidity/SMC 20 · momentum 15 · volume 10 ·
+        volatility 5 · risk/reward 10. Tiers: <strong>A+ ≥ 90, A ≥ 85, B+ ≥ 80</strong> — anything
+        below 80 is never published. The score ranks confluence quality; it is NOT a win
+        probability.</p></details>
+      <details><summary>Hard rejection rules</summary>
+        <p>Regardless of score, a setup is rejected when: 4H and 1H both oppose the direction;
+        RR &lt; 2.5; 4H regime is RANGING; ADX &lt; 15 with no emerging-trend evidence (DI aligned
+        + ADX rising / DI spread ≥ 3); relative volume &lt; 1.2×; stop distance abnormal; entry
+        pressed against major opposing structure; price has already displaced too far (late
+        entry); data stale or candles missing; the symbol already has an active same-direction
+        signal; a duplicate setup is inside the cooldown window; or any data-integrity check
+        fails. Signals can never depend on future candles (replay-verified).</p></details>
+      <details><summary>Lifecycle &amp; outcome engine</summary>
+        <p>WAITING_TRIGGER → TRIGGERED (price trades the trigger; gap opens fill at the open) →
+        WIN (TP) / LOSS (SL) / AMBIGUOUS (both touched in one candle and 1-minute data cannot
+        determine order — never counted as a win) / CANCELLED (max holding 4h) / EXPIRED (no
+        trigger within 12 × 15m candles). Signals are immutable after generation: entry, trigger,
+        SL and TP are never rewritten (no repainting).</p></details>
+      <details><summary>Data source &amp; failure policy</summary>
+        <p>Binance USDⓈ-M public market data only (no API key, no account access). If data cannot
+        be retrieved, the scan is marked degraded/failed, previous valid data is retained, and no
+        simulated values are ever produced. Frontend prices are labelled LIVE only when the
+        browser successfully refreshed them from the exchange.</p></details>
+      <p class="muted">This system provides analytical signals only and does not guarantee profitability.</p>
+    </div>
+  </section>
+
+  <!-- ============ SYSTEM LOGS ============ -->
+  <section id="system-logs" class="section">
+    <div class="section-head"><h2>8 · System Logs <span class="muted small">(latest scan events)</span></h2></div>
+    <div class="card log-box"><pre id="log-box">—</pre></div>
+  </section>
+
+  <footer class="footer">
+    <p>Crypto 15M Signal Scanner · deterministic rule-based engine · zero-cost infrastructure
+      (GitHub Actions + Cloudflare Pages) · <span id="ft-version"></span></p>
+    <p class="muted small">Market data: Binance public API. Analytical signals only — no trade
+      execution, no guarantees. Trade decisions are entirely your own responsibility.</p>
+  </footer>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

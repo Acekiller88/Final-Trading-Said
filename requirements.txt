@@ -1,0 +1,4 @@
+# The scanner engine itself uses ONLY the Python standard library
+# (urllib/json/dataclasses) — zero runtime dependencies, zero cost.
+# This file installs the QA tooling only:
+pytest>=8.0

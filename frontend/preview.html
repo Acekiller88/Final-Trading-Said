@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crypto 15M Signal Scanner — SMC Confluence Dashboard</title>
+<meta name="description" content="Rule-based multi-timeframe crypto signal scanner. Analytical signals only — not financial advice.">
+<style>
+/* Crypto 15M Signal Scanner — dark professional theme (no external assets) */
+:root {
+  --bg: #0b0e14;
+  --bg-2: #0f131c;
+  --card: #151a26;
+  --card-2: #1a2130;
+  --line: #232c3d;
+  --text: #e6ebf4;
+  --muted: #8a94a8;
+  --green: #22c383;
+  --green-dim: rgba(34, 195, 131, .12);
+  --red: #f0546c;
+  --red-dim: rgba(240, 84, 108, .12);
+  --amber: #f5b95c;
+  --amber-dim: rgba(245, 185, 92, .12);
+  --blue: #5aa2ff;
+  --blue-dim: rgba(90, 162, 255, .12);
+  --violet: #a78bfa;
+  --gold: #ffd166;
+  --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  background:
+    radial-gradient(1100px 500px at 85% -10%, rgba(90, 162, 255, .07), transparent 60%),
+    radial-gradient(900px 420px at -10% 0%, rgba(34, 195, 131, .05), transparent 55%),
+    var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* ---------------- top bar ---------------- */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(11, 14, 20, .88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-inner {
+  max-width: 1280px; margin: 0 auto; padding: 10px 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-icon { font-size: 26px; }
+.brand h1 { font-size: 17px; margin: 0; letter-spacing: .2px; }
+.brand-sub { margin: 0; color: var(--muted); font-size: 11.5px; }
+.top-status { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  font-family: var(--mono); font-size: 11px; padding: 4px 9px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card); color: var(--muted); white-space: nowrap;
+}
+.chip-ok { color: var(--green); border-color: rgba(34,195,131,.4); background: var(--green-dim); }
+.chip-warn { color: var(--amber); border-color: rgba(245,185,92,.4); background: var(--amber-dim); }
+.chip-bad { color: var(--red); border-color: rgba(240,84,108,.4); background: var(--red-dim); }
+.chip-idle { color: var(--muted); }
+
+/* ---------------- layout ---------------- */
+.container { max-width: 1280px; margin: 0 auto; padding: 22px 20px 60px; }
+.section { margin-bottom: 34px; }
+.section-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+}
+.section-head h2 { font-size: 16px; margin: 0; letter-spacing: .3px; }
+.muted { color: var(--muted); }
+.small { font-size: 12px; }
+.hidden { display: none !important; }
+
+.notice {
+  border: 1px solid var(--line); border-left: 3px solid var(--blue);
+  background: var(--blue-dim); border-radius: 8px;
+  padding: 10px 14px; margin-bottom: 14px; font-size: 12.5px; color: #c7d4ea;
+}
+.notice.warn { border-left-color: var(--amber); background: var(--amber-dim); color: #f0d9b8; }
+.notice.disclaimer { border-left-color: var(--violet); background: rgba(167,139,250,.08); color: #cfc6f2; }
+
+.grid { display: grid; gap: 12px; }
+.grid-status { grid-template-columns: repeat(4, 1fr); }
+.grid-overview { grid-template-columns: 3fr 2fr; }
+.grid-perf { grid-template-columns: repeat(6, 1fr); }
+.grid-charts { grid-template-columns: repeat(2, 1fr); margin-top: 12px; }
+
+.card {
+  background: linear-gradient(180deg, var(--card), var(--bg-2));
+  border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px;
+}
+.card h3 { margin: 0 0 10px; font-size: 13px; color: var(--muted); font-weight: 600; letter-spacing: .4px; text-transform: uppercase; }
+
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+.stat-value { font-size: 19px; font-weight: 700; font-family: var(--mono); }
+.stat-sub { font-size: 11px; color: var(--muted); }
+
+/* ---------------- market overview ---------------- */
+.breadth-bar { display: flex; height: 26px; border-radius: 7px; overflow: hidden; border: 1px solid var(--line); }
+.breadth-bar .seg { display: flex; align-items: center; justify-content: center; font-size: 11px; font-family: var(--mono); color: #0b0e14; font-weight: 700; min-width: 0; white-space: nowrap; overflow: hidden; }
+.breadth-legend { display: flex; gap: 14px; margin-top: 8px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; }
+.top-list { margin: 0; padding-left: 0; list-style: none; counter-reset: top; }
+.top-list li {
+  display: flex; justify-content: space-between; padding: 5px 0;
+  border-bottom: 1px dashed var(--line); font-family: var(--mono); font-size: 12.5px;
+}
+.top-list li:last-child { border-bottom: 0; }
+.top-list .rank { color: var(--muted); margin-right: 8px; }
+
+/* ---------------- signal cards ---------------- */
+.signal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+.sig-card { border-radius: 12px; border: 1px solid var(--line); background: linear-gradient(180deg, var(--card), var(--bg-2)); overflow: hidden; }
+.sig-card.long { border-color: rgba(34, 195, 131, .35); }
+.sig-card.short { border-color: rgba(240, 84, 108, .35); }
+.sig-head { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-bottom: 1px solid var(--line); }
+.sig-symbol { font-family: var(--mono); font-weight: 700; font-size: 15px; letter-spacing: .4px; }
+.sig-dir { font-family: var(--mono); font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 6px; }
+.long .sig-dir { background: var(--green-dim); color: var(--green); }
+.short .sig-dir { background: var(--red-dim); color: var(--red); }
+.sig-quality { font-family: var(--mono); font-size: 12px; font-weight: 800; padding: 3px 9px; border-radius: 6px; border: 1px solid; }
+.q-A\+ { color: var(--gold); border-color: rgba(255, 209, 102, .5); background: rgba(255,209,102,.08); }
+.q-A { color: var(--green); border-color: rgba(34,195,131,.5); background: var(--green-dim); }
+.q-B\+ { color: var(--blue); border-color: rgba(90,162,255,.5); background: var(--blue-dim); }
+
+.sig-price-row { display: flex; gap: 10px; padding: 10px 14px; }
+.price-box { flex: 1; border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; background: var(--card-2); }
+.price-box .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); display: flex; justify-content: space-between; }
+.price-box .val { font-family: var(--mono); font-size: 15px; font-weight: 700; margin-top: 2px; }
+.price-box .sub { font-size: 10.5px; color: var(--muted); font-family: var(--mono); }
+.trigger-gap { color: var(--muted); font-family: var(--mono); font-size: 11px; margin-top: 3px; }
+
+.sig-levels { padding: 4px 14px 10px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.lvl { border-radius: 8px; padding: 7px 9px; border: 1px solid var(--line); background: var(--card-2); }
+.lvl .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.lvl .val { font-family: var(--mono); font-size: 13px; font-weight: 600; }
+.lvl.tp .val { color: var(--green); }
+.lvl.sl .val { color: var(--red); }
+.lvl.rr .val { color: var(--amber); }
+
+.sig-meta { padding: 8px 14px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--mono); font-size: 10.5px; padding: 3px 8px; border-radius: 5px; background: var(--card-2); border: 1px solid var(--line); color: var(--muted); }
+.tag b { color: var(--text); font-weight: 600; }
+.tag.on { color: var(--green); border-color: rgba(34,195,131,.35); }
+.tag.off { opacity: .6; }
+.sig-status { padding: 8px 14px 12px; display: flex; justify-content: space-between; align-items: center; }
+.status-badge { font-family: var(--mono); font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 6px; }
+.st-WAITING_TRIGGER { background: var(--blue-dim); color: var(--blue); }
+.st-TRIGGERED { background: var(--amber-dim); color: var(--amber); }
+.st-WIN { background: var(--green-dim); color: var(--green); }
+.st-LOSS { background: var(--red-dim); color: var(--red); }
+.st-EXPIRED, .st-CANCELLED, .st-AMBIGUOUS { background: var(--card-2); color: var(--muted); }
+.sig-time { font-size: 10.5px; color: var(--muted); font-family: var(--mono); }
+
+/* ---------------- tables ---------------- */
+.table-wrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.table th {
+  text-align: left; font-size: 10.5px; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap;
+}
+.table td { padding: 7px 10px; border-bottom: 1px solid rgba(35, 44, 61, .5); white-space: nowrap; font-family: var(--mono); }
+.table tbody tr:hover { background: rgba(90, 162, 255, .04); }
+.table .num { text-align: right; }
+.table.compact td, .table.compact th { padding: 6px 8px; }
+.dir-l { color: var(--green); font-weight: 700; }
+.dir-s { color: var(--red); font-weight: 700; }
+.empty { color: var(--muted); font-size: 13px; padding: 18px; text-align: center; }
+
+/* ---------------- controls ---------------- */
+.filter-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+.pill {
+  font-family: var(--mono); font-size: 11px; padding: 4px 11px; cursor: pointer;
+  border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--muted);
+  transition: all .15s;
+}
+.pill:hover { border-color: var(--blue); color: var(--text); }
+.pill.active { background: var(--blue-dim); border-color: var(--blue); color: var(--blue); font-weight: 700; }
+.history-controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
+#hist-search {
+  background: var(--card-2); border: 1px solid var(--line); color: var(--text);
+  border-radius: 8px; padding: 7px 12px; font-family: var(--mono); font-size: 12px; width: 180px; outline: none;
+}
+#hist-search:focus { border-color: var(--blue); }
+#history-count { padding: 8px 2px 0; }
+
+/* ---------------- charts ---------------- */
+.chart-card .chart { min-height: 190px; }
+.chart svg { width: 100%; height: 190px; display: block; }
+.chart .axis-label { font-size: 10px; fill: var(--muted); font-family: var(--mono); }
+.chart .bar-label { font-size: 10px; fill: var(--text); font-family: var(--mono); }
+.chart .grid-line { stroke: var(--line); stroke-width: 1; stroke-dasharray: 3 4; }
+.chart .zero-line { stroke: var(--muted); stroke-width: 1; }
+
+/* ---------------- methodology & logs ---------------- */
+.methodology details { border-bottom: 1px solid var(--line); padding: 8px 0; }
+.methodology summary { cursor: pointer; font-weight: 600; font-size: 13.5px; color: var(--text); }
+.methodology p { color: var(--muted); font-size: 13px; margin: 8px 0; }
+.log-box { background: #0a0d13; }
+.log-box pre {
+  margin: 0; font-family: var(--mono); font-size: 11.5px; line-height: 1.7;
+  color: #9fb0c8; max-height: 340px; overflow-y: auto; white-space: pre-wrap;
+}
+.log-box .lv-info { color: var(--muted); }
+.log-box .lv-warn { color: var(--amber); }
+.log-box .lv-error { color: var(--red); }
+
+.footer { border-top: 1px solid var(--line); padding-top: 18px; text-align: center; font-size: 12px; color: var(--muted); }
+
+/* ---------------- responsive ---------------- */
+@media (max-width: 1080px) {
+  .grid-status { grid-template-columns: repeat(2, 1fr); }
+  .grid-perf { grid-template-columns: repeat(3, 1fr); }
+  .grid-overview { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .topbar-inner { padding: 10px 14px; }
+  .container { padding: 16px 12px 40px; }
+  .grid-status, .grid-perf, .grid-charts { grid-template-columns: 1fr; }
+  .signal-grid { grid-template-columns: 1fr; }
+  .brand h1 { font-size: 15px; }
+  .stat-value { font-size: 17px; }
+  .top-status { width: 100%; }
+}
+
+</style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📡</text></svg>">
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-icon">📡</span>
+      <div>
+        <h1>Crypto 15M Signal Scanner</h1>
+        <p class="brand-sub">SMC / Confluence · Top-100 USDT Perpetuals · 4H → 1H → 15M</p>
+      </div>
+    </div>
+    <div class="top-status" id="top-status">
+      <span class="chip chip-idle" id="chip-health">…</span>
+      <span class="chip" id="chip-lastscan">last scan —</span>
+      <span class="chip" id="chip-nextscan">next —</span>
+      <span class="chip" id="chip-price-mode">price feed —</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="notice hidden" id="preview-notice">
+    Live data files are unreachable in this embedded preview (sandboxed, no network).
+    Deploy on Cloudflare Pages or run <code>python -m http.server</code> in <code>frontend/</code> for the full dashboard.
+  </div>
+  <div class="notice warn hidden" id="health-notice"></div>
+  <div class="notice disclaimer">
+    <strong>Analysis tool, not advice.</strong> This system generates rule-based analytical
+    signals from public market data. It does <strong>not</strong> execute trades and does
+    <strong>not</strong> guarantee profitability. The confluence score is a quality ranking,
+    <strong>not</strong> a probability.
+  </div>
+
+  <!-- ============ SYSTEM STATUS ============ -->
+  <section id="system-status" class="section">
+    <div class="section-head">
+      <h2>1 · System Status</h2>
+      <span class="muted" id="data-updated">Last data update: —</span>
+    </div>
+    <div class="grid grid-status">
+      <div class="card stat"><span class="stat-label">System</span><span class="stat-value" id="st-system">—</span><span class="stat-sub" id="st-health-sub">—</span></div>
+      <div class="card stat"><span class="stat-label">Last Scan</span><span class="stat-value" id="st-lastscan">—</span><span class="stat-sub" id="st-jitter">—</span></div>
+      <div class="card stat"><span class="stat-label">Next Expected</span><span class="stat-value" id="st-nextscan">—</span><span class="stat-sub">every 15 min</span></div>
+      <div class="card stat"><span class="stat-label">Scan Duration</span><span class="stat-value" id="st-duration">—</span><span class="stat-sub" id="st-symbols">—</span></div>
+      <div class="card stat"><span class="stat-label">Universe</span><span class="stat-value" id="st-universe">—</span><span class="stat-sub" id="st-universe-src">—</span></div>
+      <div class="card stat"><span class="stat-label">API</span><span class="stat-value" id="st-api">—</span><span class="stat-sub" id="st-api-reqs">—</span></div>
+      <div class="card stat"><span class="stat-label">Data Freshness</span><span class="stat-value" id="st-fresh">—</span><span class="stat-sub" id="st-fresh-age">—</span></div>
+      <div class="card stat"><span class="stat-label">Active Signals</span><span class="stat-value" id="st-active">—</span><span class="stat-sub" id="st-active-sub">—</span></div>
+    </div>
+  </section>
+
+  <!-- ============ MARKET OVERVIEW ============ -->
+  <section id="market-overview" class="section">
+    <div class="section-head"><h2>2 · Market Overview <span class="muted small">(4H regime breadth across the universe)</span></h2></div>
+    <div class="grid grid-overview">
+      <div class="card overview-breadth">
+        <h3>4H Regime Breadth</h3>
+        <div class="breadth-bar" id="breadth-bar"></div>
+        <div class="breadth-legend" id="breadth-legend"></div>
+      </div>
+      <div class="card overview-top">
+        <h3>Top Liquidity (24h quote volume)</h3>
+        <ol class="top-list" id="top-volume"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ACTIVE SIGNALS ============ -->
+  <section id="active-signals" class="section">
+    <div class="section-head">
+      <h2>3 · Active Signals</h2>
+      <div class="filter-pills" id="active-filter">
+        <button class="pill active" data-q="A+">A+</button>
+        <button class="pill active" data-q="A">A</button>
+        <button class="pill active" data-q="B+">B+</button>
+      </div>
+    </div>
+    <div id="active-empty" class="card empty hidden">No active signals. The engine publishes only
+      high-confluence setups (score ≥ 80) — an empty board means no qualifying structure right now.
+      Zero forced signals is by design.</div>
+    <div class="signal-grid" id="active-grid"></div>
+  </section>
+
+  <!-- ============ RECENT SIGNALS ============ -->
+  <section id="recent-signals" class="section">
+    <div class="section-head"><h2>4 · Recent Signals <span class="muted small">(latest 10, any status)</span></h2></div>
+    <div class="card table-wrap">
+      <table class="table compact" id="recent-table">
+        <thead><tr><th>Time</th><th>Symbol</th><th>Dir</th><th>Quality</th><th>Trigger</th><th>TP</th><th>SL</th><th>RR</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="empty small hidden" id="recent-empty">No signals generated yet — history builds as scans run every 15 minutes.</div>
+    </div>
+  </section>
+
+  <!-- ============ PERFORMANCE ============ -->
+  <section id="performance" class="section">
+    <div class="section-head">
+      <h2>5 · Performance</h2>
+      <div class="filter-pills" id="perf-range">
+        <button class="pill active" data-range="7">7D</button>
+        <button class="pill" data-range="30">30D</button>
+        <button class="pill" data-range="90">90D</button>
+        <button class="pill" data-range="0">ALL</button>
+      </div>
+    </div>
+    <div class="grid grid-perf">
+      <div class="card stat"><span class="stat-label">Total Signals</span><span class="stat-value" id="pf-total">—</span><span class="stat-sub" id="pf-waiting">—</span></div>
+      <div class="card stat"><span class="stat-label">Resolved Trades</span><span class="stat-value" id="pf-resolved">—</span><span class="stat-sub" id="pf-split">—</span></div>
+      <div class="card stat"><span class="stat-label">Win Rate</span><span class="stat-value" id="pf-winrate">—</span><span class="stat-sub" id="pf-winrate-n">—</span></div>
+      <div class="card stat"><span class="stat-label">Profit Factor</span><span class="stat-value" id="pf-pf">—</span><span class="stat-sub">ΣR won ÷ |ΣR lost|</span></div>
+      <div class="card stat"><span class="stat-label">Average RR</span><span class="stat-value" id="pf-rr">—</span><span class="stat-sub" id="pf-score">—</span></div>
+      <div class="card stat"><span class="stat-label">Streaks (W / L)</span><span class="stat-value" id="pf-streaks">—</span><span class="stat-sub" id="pf-times">—</span></div>
+    </div>
+    <div class="grid grid-charts">
+      <div class="card chart-card"><h3>Cumulative resolved trades (R)</h3><div id="chart-equity" class="chart"></div></div>
+      <div class="card chart-card"><h3>Win / loss distribution by quality</h3><div id="chart-quality" class="chart"></div></div>
+      <div class="card chart-card"><h3>LONG vs SHORT</h3><div id="chart-direction" class="chart"></div></div>
+      <div class="card chart-card"><h3>Outcome mix</h3><div id="chart-outcomes" class="chart"></div></div>
+    </div>
+    <p class="muted small">Win rate = wins ÷ (wins + losses). WAITING / EXPIRED / AMBIGUOUS / CANCELLED
+      signals are excluded from the denominator. Sample sizes are shown — small samples are not
+      statistically meaningful. No probability claims are made.</p>
+  </section>
+
+  <!-- ============ SIGNAL HISTORY ============ -->
+  <section id="signal-history" class="section">
+    <div class="section-head"><h2>6 · Signal History</h2></div>
+    <div class="card">
+      <div class="history-controls">
+        <input type="search" id="hist-search" placeholder="Filter symbol…">
+        <div class="filter-pills" id="hist-direction">
+          <button class="pill active" data-d="all">All</button>
+          <button class="pill" data-d="long">LONG</button>
+          <button class="pill" data-d="short">SHORT</button>
+        </div>
+        <div class="filter-pills" id="hist-quality">
+          <button class="pill active" data-q="all">All</button>
+          <button class="pill" data-q="A+">A+</button>
+          <button class="pill" data-q="A">A</button>
+          <button class="pill" data-q="B+">B+</button>
+        </div>
+        <div class="filter-pills" id="hist-outcome">
+          <button class="pill active" data-o="all">All</button>
+          <button class="pill" data-o="WIN">WIN</button>
+          <button class="pill" data-o="LOSS">LOSS</button>
+          <button class="pill" data-o="EXPIRED">EXPIRED</button>
+          <button class="pill" data-o="AMBIGUOUS">AMBIGUOUS</button>
+        </div>
+        <div class="filter-pills" id="hist-range">
+          <button class="pill active" data-range="7">7D</button>
+          <button class="pill" data-range="30">30D</button>
+          <button class="pill" data-range="90">90D</button>
+          <button class="pill" data-range="0">ALL</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table" id="history-table">
+          <thead><tr>
+            <th>Time</th><th>Symbol</th><th>Dir</th><th>Score</th><th>Quality</th>
+            <th>Trigger</th><th>Entry Zone</th><th>TP</th><th>SL</th><th>RR</th>
+            <th>Status</th><th>Outcome</th><th>Duration</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty small hidden" id="history-empty">No signals match the current filters.</div>
+      </div>
+      <div class="muted small" id="history-count"></div>
+    </div>
+  </section>
+
+  <!-- ============ METHODOLOGY ============ -->
+  <section id="methodology" class="section">
+    <div class="section-head"><h2>7 · Methodology</h2></div>
+    <div class="card methodology">
+      <details open><summary>Timeframe model</summary>
+        <p><strong>4H — macro regime.</strong> EMA 20/50/200 stack + ADX classify each pair as
+        TRENDING_UP / TRENDING_DOWN / RANGING / MIXED. RANGING markets are hard-rejected.
+        <strong>1H — directional confirmation.</strong> The same stack must agree with the trade
+        direction. <strong>15M — signal generation.</strong> All entries, stops and targets are
+        derived from 15M structure. 5M is never used as a primary timeframe.</p></details>
+      <details><summary>Market structure (swing → BOS / CHoCH)</summary>
+        <p>Swing highs/lows are 2-bar fractals, only usable once <em>confirmed</em> two bars later
+        (strictly no lookahead). A <strong>BOS</strong> is a <em>close</em> beyond the most recent
+        confirmed swing in the trend direction (continuation). A <strong>CHoCH</strong> is a close
+        against the established trend (character change). Wick breaks never count. HH/HL/LH/LL and
+        equal-high/low pools (ATR tolerance) map the structure sequence.</p></details>
+      <details><summary>Liquidity sweep</summary>
+        <p>A candle wicks beyond a prior confirmed swing high/low (excursion ≤ 1× ATR) but
+        <em>closes back</em> on the original side — a stop-hunt rejection proxy. Real
+        breakout-and-acceptance is not classified as a sweep.</p></details>
+      <details><summary>Displacement · Fair Value Gap · Order Block</summary>
+        <p><strong>Displacement:</strong> candle body ≥ 1.5× ATR (institutional imbalance proxy).
+        <strong>FVG (3-candle model):</strong> candle-3 low leaves a gap above candle-1 high
+        (bullish) or below its low (bearish); gaps smaller than 0.1× ATR are ignored.
+        <strong>Order Block:</strong> the last opposite-colour candle before a displacement that
+        broke structure; zone = that candle's full range. These are price-action proxies — the
+        system does not claim to see real institutional orders.</p></details>
+      <details><summary>Entry, stop, target</summary>
+        <p>Signals are <em>limit-of-intention</em> style: LONG trigger = confirmation-candle high
+        + 0.1× ATR (buy-stop); entry zone = trigger − 0.5× ATR → trigger. A signal stays
+        WAITING_TRIGGER until real price trades through the trigger. Stop = swept invalidation
+        structure ± 0.5× ATR buffer (never a fixed percentage; rejected if &gt; 3.5× ATR).
+        Targets are the nearest <em>real</em> swing-liquidity levels offering RR ≥ 2.5, preferring
+        ≥ 3R when structure allows. Setups whose nearest realistic liquidity cannot fund the RR
+        are rejected — TP is never fabricated.</p></details>
+      <details><summary>Confluence scoring (100 points)</summary>
+        <p>HTF alignment 20 · market structure 20 · liquidity/SMC 20 · momentum 15 · volume 10 ·
+        volatility 5 · risk/reward 10. Tiers: <strong>A+ ≥ 90, A ≥ 85, B+ ≥ 80</strong> — anything
+        below 80 is never published. The score ranks confluence quality; it is NOT a win
+        probability.</p></details>
+      <details><summary>Hard rejection rules</summary>
+        <p>Regardless of score, a setup is rejected when: 4H and 1H both oppose the direction;
+        RR &lt; 2.5; 4H regime is RANGING; ADX &lt; 15 with no emerging-trend evidence (DI aligned
+        + ADX rising / DI spread ≥ 3); relative volume &lt; 1.2×; stop distance abnormal; entry
+        pressed against major opposing structure; price has already displaced too far (late
+        entry); data stale or candles missing; the symbol already has an active same-direction
+        signal; a duplicate setup is inside the cooldown window; or any data-integrity check
+        fails. Signals can never depend on future candles (replay-verified).</p></details>
+      <details><summary>Lifecycle &amp; outcome engine</summary>
+        <p>WAITING_TRIGGER → TRIGGERED (price trades the trigger; gap opens fill at the open) →
+        WIN (TP) / LOSS (SL) / AMBIGUOUS (both touched in one candle and 1-minute data cannot
+        determine order — never counted as a win) / CANCELLED (max holding 4h) / EXPIRED (no
+        trigger within 12 × 15m candles). Signals are immutable after generation: entry, trigger,
+        SL and TP are never rewritten (no repainting).</p></details>
+      <details><summary>Data source &amp; failure policy</summary>
+        <p>Binance USDⓈ-M public market data only (no API key, no account access). If data cannot
+        be retrieved, the scan is marked degraded/failed, previous valid data is retained, and no
+        simulated values are ever produced. Frontend prices are labelled LIVE only when the
+        browser successfully refreshed them from the exchange.</p></details>
+      <p class="muted">This system provides analytical signals only and does not guarantee profitability.</p>
+    </div>
+  </section>
+
+  <!-- ============ SYSTEM LOGS ============ -->
+  <section id="system-logs" class="section">
+    <div class="section-head"><h2>8 · System Logs <span class="muted small">(latest scan events)</span></h2></div>
+    <div class="card log-box"><pre id="log-box">—</pre></div>
+  </section>
+
+  <footer class="footer">
+    <p>Crypto 15M Signal Scanner · deterministic rule-based engine · zero-cost infrastructure
+      (GitHub Actions + Cloudflare Pages) · <span id="ft-version"></span></p>
+    <p class="muted small">Market data: Binance public API. Analytical signals only — no trade
+      execution, no guarantees. Trade decisions are entirely your own responsibility.</p>
+  </footer>
+</main>
+
+<script>
+/* Crypto 15M Signal Scanner — dashboard logic (vanilla JS, no dependencies).
+ *
+ * Data flow:
+ *  - /data/*.json files are refreshed every 60 s (produced by the Python engine
+ *    every 15 min via GitHub Actions). The "last data update" label always shows
+ *    the browser refresh time of those files.
+ *  - Live prices are fetched directly from Binance's public ticker every 20 s.
+ *    A price is labelled "LIVE" ONLY when that browser fetch succeeded; if it
+ *    fails we fall back to the scan-time price and label it "SCAN".
+ *  - Performance metrics for the selected date range are recomputed client-side
+ *    from signals.json with the same definitions as the Python engine
+ *    (win rate = wins / (wins + losses); ambiguous/expired excluded).
+ */
+"use strict";
+
+const DATA_INTERVAL_MS = 60_000;
+const PRICE_INTERVAL_MS = 20_000;
+const PRICE_ENDPOINTS = [
+  "https://fapi.binance.com/fapi/v1/ticker/price",
+  "https://www.binance.com/fapi/v1/ticker/price",
+];
+
+const TZ = "Asia/Kuala_Lumpur";
+const $ = (id) => document.getElementById(id);
+const fmtTime = (ms) => ms ? new Date(ms).toLocaleString("en-MY", {
+  timeZone: TZ, hour12: false, day: "2-digit", month: "short",
+  hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "—";
+const fmtClock = (ms) => ms ? new Date(ms).toLocaleTimeString("en-MY", {
+  timeZone: TZ, hour12: false }) : "—";
+const fmtPrice = (v) => v == null ? "—" : Number(v).toLocaleString("en-US", { maximumFractionDigits: 6 });
+const fmtAgo = (ms) => {
+  if (!ms) return "—";
+  const s = Math.max(0, (Date.now() - ms) / 1000);
+  if (s < 90) return `${Math.round(s)}s ago`;
+  if (s < 5400) return `${Math.round(s / 60)} min ago`;
+  return `${(s / 3600).toFixed(1)} h ago`;
+};
+const fmtDur = (ms) => {
+  if (ms == null) return "—";
+  const m = Math.round(ms / 60000);
+  if (m < 60) return `${m}m`;
+  return `${Math.floor(m / 60)}h ${m % 60}m`;
+};
+
+const state = {
+  signals: [], status: null, snapshots: [], performance: null,
+  lastDataUpdate: null,
+  livePrices: {}, liveOk: false, liveAt: null,
+  activeFilter: new Set(["A+", "A", "B+"]),
+  perfRange: 7, histRange: 7, histDir: "all", histQuality: "all",
+  histOutcome: "all", histSearch: "",
+};
+
+/* ------------------------------------------------------------------ data */
+async function loadJSON(name) {
+  const res = await fetch(`data/${name}?t=${Date.now()}`, { cache: "no-store" });
+  if (!res.ok) throw new Error(`${name}: HTTP ${res.status}`);
+  return res.json();
+}
+
+async function refreshData() {
+  try {
+    const [signals, status, snapshots, performance] = await Promise.all([
+      loadJSON("signals.json"), loadJSON("system-status.json"),
+      loadJSON("market-snapshots.json").catch(() => []),
+      loadJSON("performance.json").catch(() => null),
+    ]);
+    state.signals = Array.isArray(signals?.signals) ? signals.signals : [];
+    state.status = status || null;
+    state.snapshots = Array.isArray(snapshots) ? snapshots : [];
+    state.performance = performance;
+    state.lastDataUpdate = Date.now();
+    $("preview-notice").classList.add("hidden");
+    renderAll();
+  } catch (err) {
+    console.warn("data refresh failed:", err);
+    $("preview-notice").classList.remove("hidden");
+  }
+}
+
+/* live prices from the browser (Binance public ticker, CORS-enabled) */
+async function refreshPrices() {
+  const symbols = [...new Set(state.signals
+    .filter(s => s.status === "WAITING_TRIGGER" || s.status === "TRIGGERED")
+    .map(s => s.symbol))];
+  if (!symbols.length) { state.liveOk = false; renderTopChips(); return; }
+  for (const base of PRICE_ENDPOINTS) {
+    try {
+      const qs = encodeURIComponent(JSON.stringify(symbols.slice(0, 40)));
+      const res = await fetch(`${base}?symbols=${qs}`, { cache: "no-store" });
+      if (!res.ok) continue;
+      const rows = await res.json();
+      if (!Array.isArray(rows)) continue;
+      rows.forEach(r => { state.livePrices[r.symbol] = parseFloat(r.price); });
+      state.liveOk = true;
+      state.liveAt = Date.now();
+      renderTopChips(); renderActive(); renderRecent();
+      return;
+    } catch (_) { /* try next endpoint */ }
+  }
+  state.liveOk = false;
+  renderTopChips(); renderActive(); renderRecent();
+}
+
+/* ------------------------------------------------------------------ render */
+function renderAll() {
+  renderTopChips();
+  renderStatus();
+  renderOverview();
+  renderActive();
+  renderRecent();
+  renderPerformance();
+  renderHistory();
+  renderLogs();
+  $("ft-version").textContent = state.status?.version ? `engine v${state.status.version}` : "";
+}
+
+function renderTopChips() {
+  const st = state.status;
+  const health = st?.health ?? "UNKNOWN";
+  const chip = $("chip-health");
+  chip.textContent = health === "HEALTHY" ? "SYSTEM ONLINE" :
+    health === "DEGRADED" ? "DEGRADED" : health === "FAILED" ? "SYSTEM OFFLINE" : "…";
+  chip.className = "chip " + (health === "HEALTHY" ? "chip-ok" :
+    health === "DEGRADED" ? "chip-warn" : "chip-bad");
+  const last = st?.lastScan?.executedAt;
+  $("chip-lastscan").textContent = `last scan ${last ? fmtClock(last) + " MYT" : "—"}`;
+  const next = st?.nextExpectedScanAt;
+  $("chip-nextscan").textContent = next ? `next ~${fmtClock(next)} MYT` : "next —";
+  const pm = $("chip-price-mode");
+  if (state.liveOk) {
+    pm.textContent = `LIVE PRICE ${fmtClock(state.liveAt)}`;
+    pm.className = "chip chip-ok";
+  } else {
+    pm.textContent = "price: scan snapshot";
+    pm.className = "chip";
+  }
+  $("data-updated").textContent =
+    `Last data update: ${state.lastDataUpdate ? fmtTime(state.lastDataUpdate) : "—"}`;
+
+  const notice = $("health-notice");
+  if (health === "FAILED") {
+    notice.textContent = "⚠ Last scan FAILED — API unreachable. Showing the last successful scan data. No simulated data is ever shown.";
+    notice.classList.remove("hidden");
+  } else if (health === "DEGRADED") {
+    notice.textContent = "⚠ Last scan completed with degraded data quality (some symbols failed or data delayed).";
+    notice.classList.remove("hidden");
+  } else notice.classList.add("hidden");
+}
+
+function renderStatus() {
+  const st = state.status; if (!st) return;
+  const ls = st.lastScan || {};
+  $("st-system").textContent = st.health ?? "—";
+  $("st-health-sub").textContent = ls.status ? `scan ${ls.status}` : "—";
+  $("st-lastscan").textContent = ls.executedAt ? fmtClock(ls.executedAt) : "—";
+  $("st-jitter").textContent = ls.jitterSeconds != null ? `scheduled ${fmtClock(ls.scheduledAt)} · jitter ${ls.jitterSeconds}s` : "—";
+  $("st-nextscan").textContent = st.nextExpectedScanAt ? fmtClock(st.nextExpectedScanAt) : "—";
+  $("st-duration").textContent = ls.durationMs != null ? (ls.durationMs / 1000).toFixed(1) + "s" : "—";
+  $("st-symbols").textContent = `${ls.symbolsValid ?? 0}/${ls.symbolsScanned ?? 0} valid · ${ls.dataFailures ?? 0} failed`;
+  $("st-universe").textContent = `${ls.universeSize ?? st.universeSize ?? "—"} pairs`;
+  $("st-universe-src").textContent = ls.universeSource ? `via ${ls.universeSource}` : "—";
+  const api = ls.apiHealth ?? "—";
+  $("st-api").textContent = api;
+  $("st-api-reqs").textContent = ls.apiStats ? `${ls.apiStats.requests ?? 0} req · ${ls.apiStats.errors ?? 0} err · ${ls.apiStats.retries ?? 0} retry` : "—";
+  const fresh = ls.dataFreshness ?? {};
+  $("st-fresh").textContent = fresh.label ?? "—";
+  $("st-fresh-age").textContent = fresh.ageSeconds != null ? `candle age ${fmtDur(fresh.ageSeconds * 1000)}` : "—";
+  const active = state.signals.filter(s => s.status === "WAITING_TRIGGER" || s.status === "TRIGGERED");
+  $("st-active").textContent = active.length;
+  $("st-active-sub").textContent = `${active.filter(s => s.status === "TRIGGERED").length} triggered · ${active.filter(s => s.status === "WAITING_TRIGGER").length} waiting`;
+}
+
+function renderOverview() {
+  const snap = state.snapshots[state.snapshots.length - 1];
+  const bar = $("breadth-bar"), legend = $("breadth-legend");
+  bar.innerHTML = ""; legend.innerHTML = "";
+  if (!snap) return;
+  const colors = { TRENDING_UP: "var(--green)", TRENDING_DOWN: "var(--red)",
+                   RANGING: "var(--amber)", MIXED: "var(--blue)" };
+  const total = Object.values(snap.breadth || {}).reduce((a, b) => a + b, 0) || 1;
+  for (const [k, v] of Object.entries(snap.breadth || {})) {
+    if (!v) continue;
+    const seg = document.createElement("div");
+    seg.className = "seg";
+    seg.style.background = colors[k] || "var(--muted)";
+    seg.style.width = `${(v / total) * 100}%`;
+    seg.title = `${k}: ${v}`;
+    if (v / total > 0.08) seg.textContent = v;
+    bar.appendChild(seg);
+    const li = document.createElement("span");
+    li.innerHTML = `<span class="dot" style="background:${colors[k]}"></span>${k.replace("_", " ")} · ${v} (${Math.round(100 * v / total)}%)`;
+    legend.appendChild(li);
+  }
+  const top = snap.topVolume || [];
+  $("top-volume").innerHTML = top.slice(0, 10).map((t, i) =>
+    `<li><span><span class="rank">#${i + 1}</span>${t.symbol}</span>
+     <span>$${Number(t.quoteVolume / 1e6).toFixed(1)}M</span></li>`).join("");
+}
+
+function signalCard(s) {
+  const long = s.direction === "LONG";
+  const live = state.livePrices[s.symbol];
+  const price = state.liveOk && live != null ? live : s.currentPrice;
+  const priceLbl = state.liveOk && live != null ? "LIVE MARKET PRICE" : "PRICE (SCAN)";
+  const trigger = s.triggerPrice;
+  const gapPct = trigger ? ((price - trigger) / trigger * 100) : null;
+  const gapTxt = gapPct == null ? "" :
+    (s.status === "WAITING_TRIGGER"
+      ? (long ? `needs +${Math.max(0, ((trigger - price) / price) * 100).toFixed(2)}% to trigger`
+              : `needs −${Math.max(0, ((price - trigger) / price) * 100).toFixed(2)}% to trigger`)
+      : `filled @ ${fmtPrice(s.entryPrice)}`);
+  const zone = Array.isArray(s.entryZone) ? s.entryZone : [null, null];
+  const f = s.fvg, ob = s.orderBlock;
+  const card = document.createElement("div");
+  card.className = `sig-card ${long ? "long" : "short"}`;
+  card.innerHTML = `
+    <div class="sig-head">
+      <span class="sig-symbol">${s.symbol} <span class="sig-dir">${s.direction}</span></span>
+      <span class="sig-quality q-${s.quality}">${s.quality} · ${Number(s.score).toFixed(1)}/100</span>
+    </div>
+    <div class="sig-price-row">
+      <div class="price-box">
+        <span class="lbl">${priceLbl} <span>${state.liveOk && live != null ? fmtAgo(state.liveAt) : fmtAgo(s.currentPriceAt)}</span></span>
+        <div class="val">${fmtPrice(price)}</div>
+      </div>
+      <div class="price-box">
+        <span class="lbl">TRIGGER</span>
+        <div class="val">${fmtPrice(trigger)}</div>
+        <div class="trigger-gap">${gapTxt}</div>
+      </div>
+    </div>
+    <div class="sig-levels">
+      <div class="lvl"><span class="lbl">Entry zone</span><div class="val">${fmtPrice(zone[0])}–${fmtPrice(zone[1])}</div></div>
+      <div class="lvl tp"><span class="lbl">Take profit</span><div class="val">${fmtPrice(s.takeProfit)}</div></div>
+      <div class="lvl sl"><span class="lbl">Stop loss</span><div class="val">${fmtPrice(s.stopLoss)}</div></div>
+      <div class="lvl rr"><span class="lbl">Risk / reward</span><div class="val">1 : ${Number(s.riskReward).toFixed(2)}</div></div>
+      <div class="lvl"><span class="lbl">4H bias</span><div class="val">${(s.htf4hBias || "—").replace("_", " ")}</div></div>
+      <div class="lvl"><span class="lbl">1H bias</span><div class="val">${(s.htf1hBias || "—").replace("_", " ")}</div></div>
+    </div>
+    <div class="sig-meta">
+      <span class="tag on">sweep ${s.liquiditySweep ? "@" + fmtPrice(s.liquiditySweep.level) : "—"}</span>
+      <span class="tag ${s.structure?.event?.startsWith("CHoCH") ? "on" : ""}">${s.structure?.event ?? "—"}</span>
+      <span class="tag ${s.displacement ? "on" : "off"}">displacement ${s.displacement ? "✓" : "✗"}</span>
+      <span class="tag ${f ? "on" : "off"}">FVG ${f ? "@" + fmtPrice(f.bottom) + "–" + fmtPrice(f.top) : "✗"}</span>
+      <span class="tag ${ob ? "on" : "off"}">OB ${ob ? "@" + fmtPrice(ob.bottom) + "–" + fmtPrice(ob.top) : "✗"}</span>
+      <span class="tag">vol ${Number(s.relativeVolume).toFixed(2)}×</span>
+      <span class="tag">RSI ${Number(s.rsi).toFixed(0)}</span>
+      <span class="tag">ADX ${Number(s.adx).toFixed(0)}</span>
+      <span class="tag">${s.marketRegime ?? ""}</span>
+    </div>
+    <div class="sig-status">
+      <span class="status-badge st-${s.status}">${s.status.replace("_", " ")}</span>
+      <span class="sig-time">generated ${fmtTime(s.generatedAt)} · ${s.timeframe}</span>
+    </div>`;
+  return card;
+}
+
+function renderActive() {
+  const grid = $("active-grid"), empty = $("active-empty");
+  const active = state.signals
+    .filter(s => (s.status === "WAITING_TRIGGER" || s.status === "TRIGGERED")
+                 && state.activeFilter.has(s.quality))
+    .sort((a, b) => b.score - a.score || b.generatedAt - a.generatedAt);
+  grid.innerHTML = "";
+  empty.classList.toggle("hidden", state.signals
+    .filter(s => s.status === "WAITING_TRIGGER" || s.status === "TRIGGERED").length > 0);
+  const order = { "A+": 0, "A": 1, "B+": 2 };
+  active.sort((a, b) => (order[a.quality] ?? 9) - (order[b.quality] ?? 9) || b.score - a.score);
+  active.forEach(s => grid.appendChild(signalCard(s)));
+}
+
+function renderRecent() {
+  const tbody = document.querySelector("#recent-table tbody");
+  const recent = [...state.signals].sort((a, b) => b.generatedAt - a.generatedAt).slice(0, 10);
+  $("recent-empty").classList.toggle("hidden", recent.length > 0);
+  tbody.innerHTML = recent.map(s => `
+    <tr>
+      <td>${fmtTime(s.generatedAt)}</td>
+      <td><b>${s.symbol}</b></td>
+      <td class="${s.direction === "LONG" ? "dir-l" : "dir-s"}">${s.direction}</td>
+      <td class="sig-quality q-${s.quality}">${s.quality} ${Number(s.score).toFixed(0)}</td>
+      <td>${fmtPrice(s.triggerPrice)}</td>
+      <td>${fmtPrice(s.takeProfit)}</td>
+      <td>${fmtPrice(s.stopLoss)}</td>
+      <td>1:${Number(s.riskReward).toFixed(2)}</td>
+      <td><span class="status-badge st-${s.status}">${s.status.replace("_", " ")}</span></td>
+    </tr>`).join("");
+}
+
+/* --------------------------------------------------- performance (JS mirror) */
+function perfFor(rangeDays) {
+  const since = rangeDays ? Date.now() - rangeDays * 864e5 : 0;
+  const sigs = state.signals.filter(s => s.generatedAt >= since);
+  const count = (st) => sigs.filter(s => s.status === st).length;
+  const wins = count("WIN"), losses = count("LOSS");
+  const rWins = sigs.filter(s => s.status === "WIN").map(s => s.rMultiple ?? 0);
+  const rLosses = sigs.filter(s => s.status === "LOSS").map(s => s.rMultiple ?? 0);
+  const grossW = rWins.reduce((a, b) => a + b, 0);
+  const grossL = Math.abs(rLosses.reduce((a, b) => a + b, 0));
+  const byDir = (d) => {
+    const sub = sigs.filter(s => s.direction === d);
+    const w = sub.filter(s => s.status === "WIN").length;
+    const l = sub.filter(s => s.status === "LOSS").length;
+    return { w, l, n: w + l, wr: w + l ? (100 * w / (w + l)) : null };
+  };
+  const byQ = (q) => {
+    const sub = sigs.filter(s => s.quality === q);
+    const w = sub.filter(s => s.status === "WIN").length;
+    const l = sub.filter(s => s.status === "LOSS").length;
+    return { w, l, n: w + l, wr: w + l ? (100 * w / (w + l)) : null };
+  };
+  return {
+    total: sigs.length, waiting: count("WAITING_TRIGGER"), triggeredOpen: count("TRIGGERED"),
+    wins, losses, expired: count("EXPIRED"), ambiguous: count("AMBIGUOUS"), cancelled: count("CANCELLED"),
+    resolved: wins + losses,
+    winRate: wins + losses ? 100 * wins / (wins + losses) : null,
+    pf: grossL > 0 ? grossW / grossL : null,
+    avgRr: sigs.length ? sigs.reduce((a, s) => a + (s.riskReward || 0), 0) / sigs.length : null,
+    avgScore: sigs.length ? sigs.reduce((a, s) => a + (s.score || 0), 0) / sigs.length : null,
+    long: byDir("LONG"), short: byDir("SHORT"),
+    q: { "A+": byQ("A+"), "A": byQ("A"), "B+": byQ("B+") },
+    sigs,
+  };
+}
+
+function renderPerformance() {
+  const p = perfFor(state.perfRange);
+  $("pf-total").textContent = p.total;
+  $("pf-waiting").textContent = `${p.waiting} waiting · ${p.triggeredOpen} open`;
+  $("pf-resolved").textContent = p.resolved;
+  $("pf-split").textContent = `${p.wins}W / ${p.losses}L · ${p.expired} exp · ${p.ambiguous} amb · ${p.cancelled} canc`;
+  $("pf-winrate").textContent = p.winRate == null ? "—" + "" : p.winRate.toFixed(1) + "%";
+  $("pf-winrate-n").textContent = `based on ${p.wins} wins / ${p.resolved} resolved trades`;
+  $("pf-pf").textContent = p.pf == null ? "—" : p.pf.toFixed(2);
+  $("pf-rr").textContent = p.avgRr == null ? "—" : "1:" + p.avgRr.toFixed(2);
+  $("pf-score").textContent = p.avgScore == null ? "—" : `avg score ${p.avgScore.toFixed(1)}`;
+
+  const st = state.performance;
+  $("pf-streaks").textContent = st ? `${st.maxWinningStreak ?? 0} / ${st.maxLosingStreak ?? 0}` : "—";
+  $("pf-times").textContent = st && st.avgTimeToTpMs != null
+    ? `avg→TP ${fmtDur(st.avgTimeToTpMs)} · avg→SL ${fmtDur(st.avgTimeToSlMs ?? null)}` : "—";
+
+  drawEquityChart(p.sigs);
+  drawQualityChart(p);
+  drawDirectionChart(p);
+  drawOutcomeChart(p);
+}
+
+/* --------------------------------------------------- SVG charts (no libs) */
+const NS = "http://www.w3.org/2000/svg";
+function svgEl(tag, attrs) {
+  const el = document.createElementNS(NS, tag);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+  return el;
+}
+
+function drawEquityChart(sigs) {
+  const box = $("chart-equity"); box.innerHTML = "";
+  const resolved = sigs.filter(s => s.status === "WIN" || s.status === "LOSS")
+    .sort((a, b) => (a.closedAt ?? 0) - (b.closedAt ?? 0));
+  if (resolved.length < 2) {
+    box.innerHTML = `<div class="empty">Needs ≥ 2 resolved trades to plot
+      (currently ${resolved.length}). History accumulates as signals resolve.</div>`;
+    return;
+  }
+  const W = 560, H = 190, PAD = 28;
+  let cum = 0;
+  const pts = resolved.map(s => { cum += (s.rMultiple ?? 0); return cum; });
+  const min = Math.min(0, ...pts), max = Math.max(1, ...pts);
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, preserveAspectRatio: "none" });
+  const x = (i) => PAD + (i / (pts.length - 1)) * (W - 2 * PAD);
+  const y = (v) => H - PAD - ((v - min) / (max - min)) * (H - 2 * PAD);
+  [0, 0.5, 1].forEach(f => svg.appendChild(svgEl("line", {
+    x1: PAD, x2: W - PAD, y1: y(min + f * (max - min)), y2: y(min + f * (max - min)),
+    class: "grid-line" })));
+  const zero = svgEl("line", { x1: PAD, x2: W - PAD, y1: y(0), y2: y(0), class: "zero-line" });
+  svg.appendChild(zero);
+  const path = pts.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  svg.appendChild(svgEl("path", { d: path, fill: "none", stroke: pts[pts.length - 1] >= 0 ? "var(--green)" : "var(--red)", "stroke-width": 2 }));
+  const last = svgEl("circle", { cx: x(pts.length - 1), cy: y(pts[pts.length - 1]), r: 3.5,
+    fill: pts[pts.length - 1] >= 0 ? "var(--green)" : "var(--red)" });
+  svg.appendChild(last);
+  const label = svgEl("text", { x: W - PAD, y: Math.max(12, y(pts[pts.length - 1]) - 8),
+    "text-anchor": "end", class: "bar-label" });
+  label.textContent = `${pts[pts.length - 1] >= 0 ? "+" : ""}${pts[pts.length - 1].toFixed(1)}R over ${pts.length} trades`;
+  svg.appendChild(label);
+  box.appendChild(svg);
+}
+
+function drawQualityChart(p) {
+  const box = $("chart-quality"); box.innerHTML = "";
+  const rows = ["A+", "A", "B+"].map(q => ({ q, ...p.q[q] }));
+  const W = 560, H = 190, rowH = 44, pad = 46, barW = W - pad - 90;
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}` });
+  rows.forEach((r, i) => {
+    const y0 = 16 + i * rowH;
+    const n = r.w + r.l || 1;
+    const wl = (r.w / n) * barW, ll = (r.l / n) * barW;
+    svg.appendChild(svgEl("text", { x: pad - 8, y: y0 + 14, "text-anchor": "end", class: "axis-label" })).textContent = r.q;
+    svg.appendChild(svgEl("rect", { x: pad, y: y0, width: Math.max(wl, 0), height: 20, rx: 3, fill: "var(--green)" }));
+    svg.appendChild(svgEl("rect", { x: pad + wl, y: y0, width: Math.max(ll, 0), height: 20, rx: 3, fill: "var(--red)" }));
+    svg.appendChild(svgEl("text", { x: pad + barW + 8, y: y0 + 14, class: "bar-label" })).textContent =
+      `${r.w}W/${r.l}L${r.wr != null ? ` · ${r.wr.toFixed(0)}%` : ""} (n=${r.n})`;
+  });
+  box.appendChild(svg);
+}
+
+function drawDirectionChart(p) {
+  const box = $("chart-direction"); box.innerHTML = "";
+  const W = 560, H = 190, rowH = 60, pad = 60, barW = W - pad - 120;
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}` });
+  [["LONG", p.long, "var(--green)"], ["SHORT", p.short, "var(--red)"]].forEach(([name, d], i) => {
+    const y0 = 24 + i * rowH;
+    const n = d.w + d.l || 1;
+    svg.appendChild(svgEl("text", { x: pad - 8, y: y0 + 14, "text-anchor": "end", class: "axis-label" })).textContent = name;
+    svg.appendChild(svgEl("rect", { x: pad, y: y0, width: barW, height: 20, rx: 3, fill: "var(--card-2)", stroke: "var(--line)" }));
+    svg.appendChild(svgEl("rect", { x: pad, y: y0, width: Math.max((d.w / n) * barW, 0), height: 20, rx: 3, fill: d3color(name) }));
+    svg.appendChild(svgEl("text", { x: pad + barW + 8, y: y0 + 14, class: "bar-label" })).textContent =
+      `${d.w}W/${d.l}L · ${d.wr == null ? "—" : d.wr.toFixed(0) + "%"} (n=${d.n})`;
+  });
+  function d3color(name) { return name === "LONG" ? "var(--green)" : "var(--red)"; }
+  box.appendChild(svg);
+}
+
+function drawOutcomeChart(p) {
+  const box = $("chart-outcomes"); box.innerHTML = "";
+  const parts = [["WIN", p.wins, "var(--green)"], ["LOSS", p.losses, "var(--red)"],
+                 ["EXPIRED", p.expired, "var(--muted)"], ["AMBIGUOUS", p.ambiguous, "var(--violet)"],
+                 ["CANCELLED", p.cancelled, "var(--amber)"]];
+  const total = parts.reduce((a, [, v]) => a + v, 0) || 1;
+  const W = 560, H = 190, rowH = 32, pad = 90, barW = W - pad - 80;
+  const svg = svgEl("svg", { viewBox: `0 0 ${W} ${H}` });
+  parts.forEach(([name, v, color], i) => {
+    const y0 = 12 + i * rowH;
+    svg.appendChild(svgEl("text", { x: pad - 8, y: y0 + 13, "text-anchor": "end", class: "axis-label" })).textContent = name;
+    svg.appendChild(svgEl("rect", { x: pad, y: y0, width: Math.max((v / total) * barW, 1), height: 17, rx: 3, fill: color, opacity: .85 }));
+    svg.appendChild(svgEl("text", { x: pad + (v / total) * barW + 6, y: y0 + 13, class: "bar-label" })).textContent = v;
+  });
+  box.appendChild(svg);
+}
+
+/* --------------------------------------------------- history table */
+function renderHistory() {
+  const p = perfFor(state.histRange);
+  let rows = p.sigs;
+  if (state.histDir !== "all") rows = rows.filter(s => s.direction === state.histDir.toUpperCase());
+  if (state.histQuality !== "all") rows = rows.filter(s => s.quality === state.histQuality);
+  if (state.histOutcome !== "all") rows = rows.filter(s => s.status === state.histOutcome);
+  if (state.histSearch) rows = rows.filter(s => s.symbol.toLowerCase().includes(state.histSearch));
+  rows.sort((a, b) => b.generatedAt - a.generatedAt);
+  const tbody = document.querySelector("#history-table tbody");
+  $("history-empty").classList.toggle("hidden", rows.length > 0);
+  $("history-count").textContent = `${rows.length} signal(s) shown of ${state.signals.length} total`;
+  tbody.innerHTML = rows.slice(0, 300).map(s => {
+    const dur = s.closedAt && s.triggeredAt ? s.closedAt - s.triggeredAt :
+      (s.closedAt ? s.closedAt - s.generatedAt : null);
+    return `<tr>
+      <td>${fmtTime(s.generatedAt)}</td>
+      <td><b>${s.symbol}</b></td>
+      <td class="${s.direction === "LONG" ? "dir-l" : "dir-s"}">${s.direction}</td>
+      <td>${Number(s.score).toFixed(1)}</td>
+      <td class="sig-quality q-${s.quality}">${s.quality}</td>
+      <td>${fmtPrice(s.triggerPrice)}</td>
+      <td>${fmtPrice(s.entryZone?.[0])}–${fmtPrice(s.entryZone?.[1])}</td>
+      <td>${fmtPrice(s.takeProfit)}</td>
+      <td>${fmtPrice(s.stopLoss)}</td>
+      <td>1:${Number(s.riskReward).toFixed(2)}</td>
+      <td><span class="status-badge st-${s.status}">${s.status.replace("_", " ")}</span></td>
+      <td>${s.rMultiple != null ? (s.rMultiple > 0 ? "+" : "") + Number(s.rMultiple).toFixed(2) + "R" : "—"}</td>
+      <td>${fmtDur(dur)}</td>
+    </tr>`;
+  }).join("");
+}
+
+function renderLogs() {
+  const logs = state.status?.logs ?? [];
+  const tail = logs.slice(-140).reverse();
+  $("log-box").innerHTML = tail.length
+    ? tail.map(l => {
+        const cls = l.level === "error" ? "lv-error" : l.level === "warn" ? "lv-warn" : "lv-info";
+        return `<span class="${cls}">[${fmtTime(l.ts)}] [${String(l.level).toUpperCase().padEnd(5)}] ${escapeHtml(l.msg)}</span>`;
+      }).join("
+")
+    : "—";
+}
+const escapeHtml = (s) => String(s).replace(/[&<>"']/g,
+  c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+/* --------------------------------------------------- interactions */
+function bindPills(containerId, onPick, multi) {
+  const root = $(containerId);
+  root.addEventListener("click", (ev) => {
+    const btn = ev.target.closest(".pill"); if (!btn) return;
+    if (multi) {
+      const q = btn.dataset.q;
+      if (state.activeFilter.has(q)) { btn.classList.remove("active"); state.activeFilter.delete(q); }
+      else { btn.classList.add("active"); state.activeFilter.add(q); }
+    } else {
+      root.querySelectorAll(".pill").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
+    onPick(btn);
+  });
+}
+bindPills("active-filter", () => renderActive(), true);
+bindPills("perf-range", (b) => { state.perfRange = +b.dataset.range; renderPerformance(); });
+bindPills("hist-direction", (b) => { state.histDir = b.dataset.d; renderHistory(); });
+bindPills("hist-quality", (b) => { state.histQuality = b.dataset.q; renderHistory(); });
+bindPills("hist-outcome", (b) => { state.histOutcome = b.dataset.o; renderHistory(); });
+bindPills("hist-range", (b) => { state.histRange = +b.dataset.range; renderHistory(); });
+$("hist-search").addEventListener("input", (e) => {
+  state.histSearch = e.target.value.trim().toLowerCase(); renderHistory();
+});
+
+/* --------------------------------------------------- boot */
+refreshData();
+refreshPrices();
+setInterval(refreshData, DATA_INTERVAL_MS);
+setInterval(refreshPrices, PRICE_INTERVAL_MS);
+setInterval(renderTopChips, 10_000); // keep "ago" labels fresh
+
+</script>
+</body>
+</html>
