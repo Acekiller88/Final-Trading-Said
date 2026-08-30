@@ -1,12 +1,12 @@
 {
   "total": 1,
-  "waiting": 1,
-  "triggered": 0,
+  "waiting": 0,
+  "triggered": 1,
   "wins": 0,
   "losses": 0,
   "expired": 0,
   "ambiguous": 0,
-  "cancelled": 0,
+  "cancelled": 1,
   "winRate": null,
   "resolvedTrades": 0,
   "avgRr": 3.717,
@@ -20,13 +20,13 @@
   "byDirection": {
     "LONG": {
       "total": 1,
-      "waiting": 1,
-      "triggered": 0,
+      "waiting": 0,
+      "triggered": 1,
       "wins": 0,
       "losses": 0,
       "expired": 0,
       "ambiguous": 0,
-      "cancelled": 0,
+      "cancelled": 1,
       "winRate": null,
       "resolvedTrades": 0,
       "avgRr": 3.717,
@@ -40,13 +40,13 @@
   "byQuality": {
     "B+": {
       "total": 1,
-      "waiting": 1,
-      "triggered": 0,
+      "waiting": 0,
+      "triggered": 1,
       "wins": 0,
       "losses": 0,
       "expired": 0,
       "ambiguous": 0,
-      "cancelled": 0,
+      "cancelled": 1,
       "winRate": null,
       "resolvedTrades": 0,
       "avgRr": 3.717,
@@ -60,13 +60,13 @@
   "byRegime": {
     "MIXED": {
       "total": 1,
-      "waiting": 1,
-      "triggered": 0,
+      "waiting": 0,
+      "triggered": 1,
       "wins": 0,
       "losses": 0,
       "expired": 0,
       "ambiguous": 0,
-      "cancelled": 0,
+      "cancelled": 1,
       "winRate": null,
       "resolvedTrades": 0,
       "avgRr": 3.717,
@@ -80,13 +80,13 @@
   "bySymbol": {
     "DEXEUSDT": {
       "total": 1,
-      "waiting": 1,
-      "triggered": 0,
+      "waiting": 0,
+      "triggered": 1,
       "wins": 0,
       "losses": 0,
       "expired": 0,
       "ambiguous": 0,
-      "cancelled": 0,
+      "cancelled": 1,
       "winRate": null,
       "resolvedTrades": 0,
       "avgRr": 3.717,
@@ -100,13 +100,13 @@
   "byScoreRange": {
     "B+": {
       "total": 1,
-      "waiting": 1,
-      "triggered": 0,
+      "waiting": 0,
+      "triggered": 1,
       "wins": 0,
       "losses": 0,
       "expired": 0,
       "ambiguous": 0,
-      "cancelled": 0,
+      "cancelled": 1,
       "winRate": null,
       "resolvedTrades": 0,
       "avgRr": 3.717,
@@ -122,6 +122,6 @@
     "until": null,
     "signalsInWindow": 1
   },
-  "generatedAt": 1788083599345,
+  "generatedAt": 1788101184330,
   "disclaimer": "Win rate = wins / (wins + losses); waiting/expired/ambiguous/cancelled signals are excluded from the denominator. The confluence score is a quality ranking, not a probability. Past performance does not guarantee future results."
 }
