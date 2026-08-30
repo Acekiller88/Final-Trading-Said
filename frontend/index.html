@@ -30,8 +30,10 @@
 <main class="container">
 
   <div class="notice hidden" id="preview-notice">
-    Live data files are unreachable in this embedded preview (sandboxed, no network).
-    Deploy on Cloudflare Pages or run <code>python -m http.server</code> in <code>frontend/</code> for the full dashboard.
+    Data files can't be fetched in this context (opened as an offline file or a sandboxed
+    preview). Showing the embedded snapshot instead — live prices still refresh in-browser
+    when reachable. Host over HTTP (Cloudflare Pages / GitHub Pages / a local server) for
+    fully auto-refreshing data.
   </div>
   <div class="notice warn hidden" id="health-notice"></div>
   <div class="notice disclaimer">

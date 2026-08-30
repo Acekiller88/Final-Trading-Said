@@ -44,7 +44,7 @@ const fmtDur = (ms) => {
 
 const state = {
   signals: [], status: null, snapshots: [], performance: null,
-  lastDataUpdate: null,
+  lastDataUpdate: null, embeddedLoaded: false,
   livePrices: {}, liveOk: false, liveAt: null,
   activeFilter: new Set(["A+", "A", "B+"]),
   perfRange: 7, histRange: 7, histDir: "all", histQuality: "all",
@@ -70,9 +70,22 @@ async function refreshData() {
     state.snapshots = Array.isArray(snapshots) ? snapshots : [];
     state.performance = performance;
     state.lastDataUpdate = Date.now();
+    state.embeddedLoaded = false;
     $("preview-notice").classList.add("hidden");
     renderAll();
   } catch (err) {
+    // No reachable data files (offline file:// open, sandboxed preview, blocked
+    // network): fall back to the snapshot embedded at build time, if present.
+    if (window.__EMBEDDED_DATA__ && !state.embeddedLoaded) {
+      const d = window.__EMBEDDED_DATA__;
+      state.signals = Array.isArray(d.signals?.signals) ? d.signals.signals : [];
+      state.status = d.status || null;
+      state.snapshots = Array.isArray(d.snapshots) ? d.snapshots : [];
+      state.performance = d.performance || null;
+      state.lastDataUpdate = d.builtAt || null;
+      state.embeddedLoaded = true;
+      renderAll();
+    }
     console.warn("data refresh failed:", err);
     $("preview-notice").classList.remove("hidden");
   }
@@ -135,8 +148,9 @@ function renderTopChips() {
     pm.textContent = "price: scan snapshot";
     pm.className = "chip";
   }
-  $("data-updated").textContent =
-    `Last data update: ${state.lastDataUpdate ? fmtTime(state.lastDataUpdate) : "—"}`;
+  $("data-updated").textContent = state.lastDataUpdate
+    ? `Last data update: ${fmtTime(state.lastDataUpdate)}${state.embeddedLoaded ? " (embedded snapshot — offline file)" : ""}`
+    : "Last data update: —";
 
   const notice = $("health-notice");
   if (health === "FAILED") {

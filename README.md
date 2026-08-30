@@ -154,6 +154,25 @@ Prices are labelled `LIVE MARKET PRICE` **only** when that browser fetch
 succeeds; otherwise they fall back to the scan snapshot and are labelled
 accordingly.
 
+### Accessing the dashboard — multiple options
+
+Corporate/security software sometimes flags unknown preview domains (e.g. a
+sandbox proxy URL). Don't click through security warnings on a managed device —
+use one of these instead:
+
+| Option | How | Notes |
+|---|---|---|
+| **Offline single file** | Download `frontend/dashboard-offline.html` and double-click it | Fully self-contained: the latest data snapshot is embedded in the file; live prices still refresh in-browser when reachable. Rebuilt automatically on every scan, so re-download (or `raw.githubusercontent.com`) for fresh data. |
+| **GitHub Pages** (free) | Repo **Settings → Pages → Source: Deploy from a branch** → branch `main`, folder `/frontend` | Serves the dashboard at `https://<you>.github.io/crypto-signal-scanner/` — a widely trusted domain. Data updates automatically on every scan commit. |
+| **Cloudflare Pages** | See section 5 above | `https://<project>.pages.dev` free subdomain. |
+| **Local server** | `cd frontend && python -m http.server 8080` | Requires Python on the machine; gives the full auto-refreshing experience locally. |
+| **GitHub itself** | View `frontend/dashboard-offline.html` / `data/*.json` on github.com | Read-only check from anywhere github.com is allowed. |
+
+If a company device blocks even these, ask IT, or view from a personal device
+(e.g. phone) — the dashboard is fully responsive.
+
+
+
 ## 6. Data model
 
 `data/signals.json` — every signal ever generated (persistent history). Each object:
