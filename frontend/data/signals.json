@@ -1,4 +1,77 @@
 {
-  "generatedAt": 1788065000127,
-  "signals": []
+  "generatedAt": 1788083599345,
+  "signals": [
+    {
+      "id": "SIG-0333ae5599",
+      "symbol": "DEXEUSDT",
+      "direction": "LONG",
+      "timeframe": "15m",
+      "quality": "B+",
+      "score": 80.5,
+      "components": {
+        "htfAlignment": 10.0,
+        "marketStructure": 15.0,
+        "liquiditySmc": 20.0,
+        "momentum": 15.0,
+        "volume": 5.5,
+        "volatility": 5,
+        "riskReward": 10.0
+      },
+      "generatedAt": 1788083599345,
+      "signalCandleCloseTime": 1788083099999,
+      "triggerPrice": 2.3394186812,
+      "entryPrice": null,
+      "entryZone": [
+        2.3273252751,
+        2.3394186812
+      ],
+      "currentPrice": 2.336,
+      "currentPriceAt": 1788083599345,
+      "currentPriceSource": "scan",
+      "stopLoss": 2.2599065938,
+      "takeProfit": 2.635,
+      "riskReward": 3.7174,
+      "invalidationLevel": 2.272,
+      "targetKind": "swing_high",
+      "marketRegime": "MIXED",
+      "htf4hBias": "neutral",
+      "htf1hBias": "strong_bullish",
+      "structure": {
+        "event": "CHoCH_up",
+        "ageBars": 0,
+        "level": 2.332
+      },
+      "liquiditySweep": {
+        "type": "bullish",
+        "level": 2.288,
+        "barsAgo": 5
+      },
+      "bos": false,
+      "choch": true,
+      "displacement": true,
+      "fvg": {
+        "bottom": 2.288,
+        "top": 2.295
+      },
+      "orderBlock": {
+        "bottom": 2.278,
+        "top": 2.288
+      },
+      "rsi": 58.04,
+      "adx": 19.49,
+      "atr": 0.0241868123,
+      "atrPercent": 1.0354,
+      "relativeVolume": 1.549,
+      "vwap": 2.3014426479,
+      "status": "WAITING_TRIGGER",
+      "expiryAt": 1788094399345,
+      "tradeMaxDurationMs": 14400000,
+      "triggeredAt": null,
+      "closedAt": null,
+      "outcome": null,
+      "rMultiple": null,
+      "dataSource": "binance-futures-mirror",
+      "updatedAt": 1788083599345
+    }
+  ]
 }

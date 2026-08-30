@@ -1,6 +1,6 @@
 {
-  "total": 0,
-  "waiting": 0,
+  "total": 1,
+  "waiting": 1,
   "triggered": 0,
   "wins": 0,
   "losses": 0,
@@ -9,24 +9,119 @@
   "cancelled": 0,
   "winRate": null,
   "resolvedTrades": 0,
-  "avgRr": null,
+  "avgRr": 3.717,
   "avgWinR": null,
   "profitFactor": null,
-  "avgScore": null,
+  "avgScore": 80.5,
   "avgTimeToTpMs": null,
   "avgTimeToSlMs": null,
   "maxWinningStreak": 0,
   "maxLosingStreak": 0,
-  "byDirection": {},
-  "byQuality": {},
-  "byRegime": {},
-  "bySymbol": {},
-  "byScoreRange": {},
+  "byDirection": {
+    "LONG": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 3.717,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 80.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    }
+  },
+  "byQuality": {
+    "B+": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 3.717,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 80.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    }
+  },
+  "byRegime": {
+    "MIXED": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 3.717,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 80.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    }
+  },
+  "bySymbol": {
+    "DEXEUSDT": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 3.717,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 80.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    }
+  },
+  "byScoreRange": {
+    "B+": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 3.717,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 80.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    }
+  },
   "window": {
     "since": null,
     "until": null,
-    "signalsInWindow": 0
+    "signalsInWindow": 1
   },
-  "generatedAt": 1788065000127,
+  "generatedAt": 1788083599345,
   "disclaimer": "Win rate = wins / (wins + losses); waiting/expired/ambiguous/cancelled signals are excluded from the denominator. The confluence score is a quality ranking, not a probability. Past performance does not guarantee future results."
 }
