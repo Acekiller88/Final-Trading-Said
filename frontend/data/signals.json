@@ -1,5 +1,5 @@
 {
-  "generatedAt": 1788910668655,
+  "generatedAt": 1788917725311,
   "signals": [
     {
       "id": "SIG-0333ae5599",
@@ -72,6 +72,78 @@
       "rMultiple": 0.1834,
       "dataSource": "binance-futures-mirror",
       "updatedAt": 1788101184330
+    },
+    {
+      "id": "SIG-b134a2922d",
+      "symbol": "HAEDALUSDT",
+      "direction": "LONG",
+      "timeframe": "15m",
+      "quality": "A+",
+      "score": 90.1,
+      "components": {
+        "htfAlignment": 20.0,
+        "marketStructure": 15.0,
+        "liquiditySmc": 20.0,
+        "momentum": 15.0,
+        "volume": 5.1,
+        "volatility": 5,
+        "riskReward": 10.0
+      },
+      "generatedAt": 1788917725311,
+      "signalCandleCloseTime": 1788917399999,
+      "triggerPrice": 0.0197090289,
+      "entryPrice": null,
+      "entryZone": [
+        0.0196138844,
+        0.0197090289
+      ],
+      "currentPrice": 0.01959,
+      "currentPriceAt": 1788917725311,
+      "currentPriceSource": "scan",
+      "stopLoss": 0.0191148555,
+      "takeProfit": 0.02395,
+      "riskReward": 7.1376,
+      "invalidationLevel": 0.01921,
+      "targetKind": "swing_high",
+      "marketRegime": "TRENDING_UP",
+      "htf4hBias": "strong_bullish",
+      "htf1hBias": "strong_bullish",
+      "structure": {
+        "event": "BOS_up",
+        "ageBars": 2,
+        "level": 0.01953
+      },
+      "liquiditySweep": {
+        "type": "bullish",
+        "level": 0.0193,
+        "barsAgo": 8
+      },
+      "bos": true,
+      "choch": false,
+      "displacement": true,
+      "fvg": {
+        "bottom": 0.01928,
+        "top": 0.01933
+      },
+      "orderBlock": {
+        "bottom": 0.01922,
+        "top": 0.0194
+      },
+      "rsi": 59.82,
+      "adx": 20.49,
+      "atr": 0.000190289,
+      "atrPercent": 0.9714,
+      "relativeVolume": 1.512,
+      "vwap": 0.0192933721,
+      "status": "WAITING_TRIGGER",
+      "expiryAt": 1788928525311,
+      "tradeMaxDurationMs": 14400000,
+      "triggeredAt": null,
+      "closedAt": null,
+      "outcome": null,
+      "rMultiple": null,
+      "dataSource": "binance-futures-mirror",
+      "updatedAt": 1788917725311
     }
   ]
 }
