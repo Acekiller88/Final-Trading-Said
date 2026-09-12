@@ -1,5 +1,5 @@
 {
-  "generatedAt": 1789248459025,
+  "generatedAt": 1789254879709,
   "signals": [
     {
       "id": "SIG-0333ae5599",
@@ -144,6 +144,75 @@
       "rMultiple": -1.0,
       "dataSource": "binance-futures-mirror",
       "updatedAt": 1788936303856
+    },
+    {
+      "id": "SIG-d3df9e91b4",
+      "symbol": "PUNDIXUSDT",
+      "direction": "LONG",
+      "timeframe": "15m",
+      "quality": "A",
+      "score": 85.5,
+      "components": {
+        "htfAlignment": 20.0,
+        "marketStructure": 15.0,
+        "liquiditySmc": 15.0,
+        "momentum": 15.0,
+        "volume": 8.7,
+        "volatility": 5,
+        "riskReward": 6.8
+      },
+      "generatedAt": 1789254879709,
+      "signalCandleCloseTime": 1789254899999,
+      "triggerPrice": 0.1043042029,
+      "entryPrice": null,
+      "entryZone": [
+        0.1035831884,
+        0.1043042029
+      ],
+      "currentPrice": 0.10405,
+      "currentPriceAt": 1789254879709,
+      "currentPriceSource": "scan",
+      "stopLoss": 0.1001889855,
+      "takeProfit": 0.11533,
+      "riskReward": 2.6793,
+      "invalidationLevel": 0.10091,
+      "targetKind": "swing_high",
+      "marketRegime": "TRENDING_UP",
+      "htf4hBias": "strong_bullish",
+      "htf1hBias": "strong_bullish",
+      "structure": {
+        "event": "CHoCH_up",
+        "ageBars": 0,
+        "level": 0.1028
+      },
+      "liquiditySweep": {
+        "type": "bullish",
+        "level": 0.10129,
+        "barsAgo": 9
+      },
+      "bos": false,
+      "choch": true,
+      "displacement": true,
+      "fvg": null,
+      "orderBlock": {
+        "bottom": 0.10123,
+        "top": 0.10246
+      },
+      "rsi": 60.62,
+      "adx": 19.13,
+      "atr": 0.0014420291,
+      "atrPercent": 1.3859,
+      "relativeVolume": 1.87,
+      "vwap": 0.1032046387,
+      "status": "WAITING_TRIGGER",
+      "expiryAt": 1789265679709,
+      "tradeMaxDurationMs": 14400000,
+      "triggeredAt": null,
+      "closedAt": null,
+      "outcome": null,
+      "rMultiple": null,
+      "dataSource": "binance-futures-mirror",
+      "updatedAt": 1789254879709
     }
   ]
 }

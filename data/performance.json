@@ -1,6 +1,6 @@
 {
-  "total": 2,
-  "waiting": 0,
+  "total": 3,
+  "waiting": 1,
   "triggered": 2,
   "wins": 0,
   "losses": 1,
@@ -9,18 +9,18 @@
   "cancelled": 1,
   "winRate": 0.0,
   "resolvedTrades": 1,
-  "avgRr": 5.428,
+  "avgRr": 4.511,
   "avgWinR": null,
   "profitFactor": 0.0,
-  "avgScore": 85.3,
+  "avgScore": 85.4,
   "avgTimeToTpMs": null,
   "avgTimeToSlMs": 14399999,
   "maxWinningStreak": 0,
   "maxLosingStreak": 1,
   "byDirection": {
     "LONG": {
-      "total": 2,
-      "waiting": 0,
+      "total": 3,
+      "waiting": 1,
       "triggered": 2,
       "wins": 0,
       "losses": 1,
@@ -29,15 +29,33 @@
       "cancelled": 1,
       "winRate": 0.0,
       "resolvedTrades": 1,
-      "avgRr": 5.428,
+      "avgRr": 4.511,
       "avgWinR": null,
       "profitFactor": 0.0,
-      "avgScore": 85.3,
+      "avgScore": 85.4,
       "avgTimeToTpMs": null,
       "avgTimeToSlMs": 14399999
     }
   },
   "byQuality": {
+    "A": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 2.679,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 85.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    },
     "A+": {
       "total": 1,
       "waiting": 0,
@@ -95,8 +113,8 @@
       "avgTimeToSlMs": null
     },
     "TRENDING_UP": {
-      "total": 1,
-      "waiting": 0,
+      "total": 2,
+      "waiting": 1,
       "triggered": 1,
       "wins": 0,
       "losses": 1,
@@ -105,10 +123,10 @@
       "cancelled": 0,
       "winRate": 0.0,
       "resolvedTrades": 1,
-      "avgRr": 7.138,
+      "avgRr": 4.908,
       "avgWinR": null,
       "profitFactor": 0.0,
-      "avgScore": 90.1,
+      "avgScore": 87.8,
       "avgTimeToTpMs": null,
       "avgTimeToSlMs": 14399999
     }
@@ -149,9 +167,45 @@
       "avgScore": 90.1,
       "avgTimeToTpMs": null,
       "avgTimeToSlMs": 14399999
+    },
+    "PUNDIXUSDT": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 2.679,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 85.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
     }
   },
   "byScoreRange": {
+    "A": {
+      "total": 1,
+      "waiting": 1,
+      "triggered": 0,
+      "wins": 0,
+      "losses": 0,
+      "expired": 0,
+      "ambiguous": 0,
+      "cancelled": 0,
+      "winRate": null,
+      "resolvedTrades": 0,
+      "avgRr": 2.679,
+      "avgWinR": null,
+      "profitFactor": null,
+      "avgScore": 85.5,
+      "avgTimeToTpMs": null,
+      "avgTimeToSlMs": null
+    },
     "A+": {
       "total": 1,
       "waiting": 0,
@@ -192,8 +246,8 @@
   "window": {
     "since": null,
     "until": null,
-    "signalsInWindow": 2
+    "signalsInWindow": 3
   },
-  "generatedAt": 1789248459025,
+  "generatedAt": 1789254879709,
   "disclaimer": "Win rate = wins / (wins + losses); waiting/expired/ambiguous/cancelled signals are excluded from the denominator. The confluence score is a quality ranking, not a probability. Past performance does not guarantee future results."
 }
