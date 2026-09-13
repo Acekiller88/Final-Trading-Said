@@ -1,5 +1,5 @@
 {
-  "generatedAt": 1789254879709,
+  "generatedAt": 1789261764360,
   "signals": [
     {
       "id": "SIG-0333ae5599",
@@ -164,13 +164,13 @@
       "generatedAt": 1789254879709,
       "signalCandleCloseTime": 1789254899999,
       "triggerPrice": 0.1043042029,
-      "entryPrice": null,
+      "entryPrice": 0.1043042029,
       "entryZone": [
         0.1035831884,
         0.1043042029
       ],
-      "currentPrice": 0.10405,
-      "currentPriceAt": 1789254879709,
+      "currentPrice": 0.10657,
+      "currentPriceAt": 1789261199999,
       "currentPriceSource": "scan",
       "stopLoss": 0.1001889855,
       "takeProfit": 0.11533,
@@ -204,15 +204,15 @@
       "atrPercent": 1.3859,
       "relativeVolume": 1.87,
       "vwap": 0.1032046387,
-      "status": "WAITING_TRIGGER",
+      "status": "TRIGGERED",
       "expiryAt": 1789265679709,
       "tradeMaxDurationMs": 14400000,
-      "triggeredAt": null,
+      "triggeredAt": 1789254900000,
       "closedAt": null,
       "outcome": null,
       "rMultiple": null,
       "dataSource": "binance-futures-mirror",
-      "updatedAt": 1789254879709
+      "updatedAt": 1789261764360
     }
   ]
 }
