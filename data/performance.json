@@ -248,6 +248,6 @@
     "until": null,
     "signalsInWindow": 3
   },
-  "generatedAt": 1789676478115,
+  "generatedAt": 1789686047785,
   "disclaimer": "Win rate = wins / (wins + losses); waiting/expired/ambiguous/cancelled signals are excluded from the denominator. The confluence score is a quality ranking, not a probability. Past performance does not guarantee future results."
 }
