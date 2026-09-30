@@ -13132,5 +13132,71 @@
         "rank": 10
       }
     ]
+  },
+  {
+    "ts": 1790748111014,
+    "universeSize": 100,
+    "source": "binance-futures-mirror",
+    "breadth": {
+      "TRENDING_UP": 67,
+      "TRENDING_DOWN": 8,
+      "RANGING": 8,
+      "MIXED": 16
+    },
+    "activeSignals": 0,
+    "signalsGenerated": 0,
+    "avgScore": null,
+    "topVolume": [
+      {
+        "symbol": "BTCUSDT",
+        "quoteVolume": 9708518935.43,
+        "rank": 1
+      },
+      {
+        "symbol": "ETHUSDT",
+        "quoteVolume": 9137138950.79,
+        "rank": 2
+      },
+      {
+        "symbol": "ZECUSDT",
+        "quoteVolume": 1954466451.78,
+        "rank": 3
+      },
+      {
+        "symbol": "SOLUSDT",
+        "quoteVolume": 1946367555.0,
+        "rank": 4
+      },
+      {
+        "symbol": "QNTUSDT",
+        "quoteVolume": 1563873822.17,
+        "rank": 5
+      },
+      {
+        "symbol": "XRPUSDT",
+        "quoteVolume": 1301048798.08,
+        "rank": 6
+      },
+      {
+        "symbol": "NEARUSDT",
+        "quoteVolume": 753242756.93,
+        "rank": 7
+      },
+      {
+        "symbol": "HYPEUSDT",
+        "quoteVolume": 594604713.61,
+        "rank": 8
+      },
+      {
+        "symbol": "PUMPUSDT",
+        "quoteVolume": 551536876.36,
+        "rank": 9
+      },
+      {
+        "symbol": "DOGEUSDT",
+        "quoteVolume": 443922994.4,
+        "rank": 10
+      }
+    ]
   }
 ]
