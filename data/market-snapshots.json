@@ -15442,5 +15442,71 @@
         "rank": 10
       }
     ]
+  },
+  {
+    "ts": 1791391848887,
+    "universeSize": 100,
+    "source": "binance-futures-mirror",
+    "breadth": {
+      "TRENDING_UP": 43,
+      "TRENDING_DOWN": 30,
+      "RANGING": 9,
+      "MIXED": 17
+    },
+    "activeSignals": 0,
+    "signalsGenerated": 0,
+    "avgScore": null,
+    "topVolume": [
+      {
+        "symbol": "BTCUSDT",
+        "quoteVolume": 13824799052.12,
+        "rank": 1
+      },
+      {
+        "symbol": "ETHUSDT",
+        "quoteVolume": 10279110720.91,
+        "rank": 2
+      },
+      {
+        "symbol": "SOLUSDT",
+        "quoteVolume": 2096791462.87,
+        "rank": 3
+      },
+      {
+        "symbol": "ZECUSDT",
+        "quoteVolume": 1604024007.47,
+        "rank": 4
+      },
+      {
+        "symbol": "XRPUSDT",
+        "quoteVolume": 982720118.24,
+        "rank": 5
+      },
+      {
+        "symbol": "NEARUSDT",
+        "quoteVolume": 713685128.65,
+        "rank": 6
+      },
+      {
+        "symbol": "DOGEUSDT",
+        "quoteVolume": 636112320.73,
+        "rank": 7
+      },
+      {
+        "symbol": "HYPEUSDT",
+        "quoteVolume": 621355043.38,
+        "rank": 8
+      },
+      {
+        "symbol": "\u9f99\u867eUSDT",
+        "quoteVolume": 442800048.69,
+        "rank": 9
+      },
+      {
+        "symbol": "ORCAUSDT",
+        "quoteVolume": 441145307.59,
+        "rank": 10
+      }
+    ]
   }
 ]
