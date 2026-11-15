@@ -3,10 +3,10 @@
   "health": "HEALTHY",
   "version": "1.0.0",
   "lastScan": {
-    "scheduledAt": 1794701700000,
-    "executedAt": 1794702322687,
-    "jitterSeconds": 622.7,
-    "durationMs": 60199,
+    "scheduledAt": 1794726000000,
+    "executedAt": 1794726179159,
+    "jitterSeconds": 179.2,
+    "durationMs": 61099,
     "status": "OK",
     "universeSize": 100,
     "universeSource": "binance-futures-mirror",
@@ -18,70 +18,80 @@
     "candidates": 0,
     "signalsGenerated": 0,
     "rejects": {
-      "HTF conflict (4H+1H oppose)": 93,
-      "relVol 1.09 < min": 2,
-      "relVol 0.59 < min": 1,
-      "relVol 0.82 < min": 2,
-      "RSI 59.3 outside [26,55]": 1,
-      "relVol 1.15 < min": 2,
-      "relVol 0.87 < min": 4,
-      "volatility out of band (3.401%)": 1,
+      "HTF conflict (4H+1H oppose)": 94,
+      "relVol 0.15 < min": 1,
+      "relVol 0.19 < min": 1,
+      "relVol 0.38 < min": 2,
+      "relVol 0.35 < min": 2,
+      "relVol 0.40 < min": 2,
+      "relVol 0.36 < min": 1,
+      "volatility out of band (6.503%)": 1,
       "HTF not aligned (4H=neutral,1H=strong_bullish)": 2,
-      "relVol 0.69 < min": 1,
-      "relVol 0.74 < min": 3,
-      "relVol 1.19 < min": 1,
-      "no liquidity sweep in window": 13,
-      "volatility out of band (5.525%)": 1,
-      "relVol 0.70 < min": 3,
-      "relVol 0.91 < min": 3,
-      "relVol 0.89 < min": 2,
-      "relVol 0.83 < min": 1,
-      "volatility out of band (5.625%)": 1,
-      "volatility out of band (4.243%)": 1,
-      "RSI 25.3 outside [26,55]": 1,
-      "relVol 0.88 < min": 4,
-      "relVol 0.81 < min": 3,
-      "relVol 0.67 < min": 1,
-      "relVol 1.01 < min": 1,
-      "relVol 1.07 < min": 1,
-      "relVol 1.05 < min": 1,
-      "HTF not aligned (4H=bullish,1H=neutral)": 2,
-      "relVol 0.68 < min": 1,
-      "4H regime RANGING": 3,
-      "RSI 56.7 outside [26,55]": 1,
-      "relVol 0.95 < min": 1,
+      "relVol 0.29 < min": 4,
+      "relVol 0.23 < min": 1,
+      "RSI 58.0 outside [26,55]": 2,
+      "relVol 0.26 < min": 4,
+      "volatility out of band (4.616%)": 1,
+      "relVol 0.30 < min": 3,
+      "volatility out of band (3.934%)": 1,
+      "relVol 0.32 < min": 1,
       "RSI 55.4 outside [26,55]": 1,
-      "RSI 56.0 outside [26,55]": 1,
-      "relVol 0.86 < min": 3,
-      "relVol 0.71 < min": 2,
-      "HTF not aligned (4H=bullish,1H=bearish)": 2,
-      "RSI 56.9 outside [26,55]": 2,
-      "no CHoCH/BOS after sweep": 2,
-      "relVol 0.85 < min": 1,
-      "HTF not aligned (4H=strong_bullish,1H=neutral)": 1,
-      "relVol 0.92 < min": 1,
-      "no displacement after structure event": 2,
-      "relVol 1.00 < min": 1,
-      "relVol 1.10 < min": 1,
-      "relVol 0.65 < min": 2,
-      "relVol 0.72 < min": 1,
-      "relVol 0.77 < min": 1,
-      "relVol 1.11 < min": 1,
-      "relVol 0.52 < min": 1,
-      "relVol 1.08 < min": 1,
-      "relVol 1.03 < min": 1,
-      "ADX 10.4 < min and not emerging": 1,
-      "relVol 0.80 < min": 1,
-      "relVol 1.06 < min": 1,
-      "relVol 0.90 < min": 1,
-      "HTF not aligned (4H=bullish,1H=strong_bearish)": 2,
-      "relVol 0.94 < min": 1,
-      "RSI 55.9 outside [26,55]": 1,
-      "HTF not aligned (4H=neutral,1H=neutral)": 2,
-      "relVol 0.97 < min": 1,
+      "relVol 0.37 < min": 3,
+      "volatility out of band (6.862%)": 1,
+      "RSI 55.5 outside [26,55]": 1,
+      "RSI 55.8 outside [26,55]": 1,
+      "RSI 55.3 outside [26,55]": 1,
+      "volatility out of band (4.925%)": 1,
+      "RSI 61.5 outside [26,55]": 1,
+      "relVol 0.42 < min": 2,
+      "relVol 0.27 < min": 2,
+      "RSI 59.3 outside [26,55]": 1,
+      "RSI 33.4 outside [45,74]": 1,
+      "4H regime RANGING": 3,
+      "relVol 0.20 < min": 2,
+      "RSI 58.2 outside [26,55]": 1,
+      "relVol 0.45 < min": 2,
+      "HTF not aligned (4H=neutral,1H=neutral)": 4,
+      "relVol 0.24 < min": 4,
+      "relVol 0.31 < min": 1,
+      "RSI 61.3 outside [26,55]": 2,
+      "ADX 12.3 < min and not emerging": 1,
+      "volatility out of band (3.141%)": 1,
+      "relVol 0.48 < min": 1,
+      "relVol 0.61 < min": 1,
+      "relVol 0.16 < min": 2,
+      "no liquidity sweep in window": 1,
       "relVol 0.66 < min": 1,
-      "ADX 11.2 < min and not emerging": 1,
-      "relVol 1.16 < min": 1
+      "HTF not aligned (4H=bullish,1H=strong_bearish)": 2,
+      "ADX 10.5 < min and not emerging": 1,
+      "relVol 1.13 < min": 1,
+      "relVol 0.83 < min": 1,
+      "relVol 0.22 < min": 2,
+      "RSI 59.8 outside [26,55]": 1,
+      "ADX 8.1 < min and not emerging": 1,
+      "relVol 0.51 < min": 1,
+      "RSI 55.9 outside [26,55]": 1,
+      "RSI 59.7 outside [26,55]": 1,
+      "RSI 59.2 outside [26,55]": 1,
+      "ADX 13.5 < min and not emerging": 1,
+      "RSI 60.7 outside [26,55]": 2,
+      "relVol 0.28 < min": 1,
+      "RSI 56.0 outside [26,55]": 1,
+      "ADX 11.0 < min and not emerging": 1,
+      "RSI 57.4 outside [26,55]": 1,
+      "ADX 14.2 < min and not emerging": 1,
+      "ADX 13.9 < min and not emerging": 1,
+      "ADX 14.0 < min and not emerging": 1,
+      "RSI 56.5 outside [26,55]": 1,
+      "HTF not aligned (4H=neutral,1H=bullish)": 2,
+      "ADX 12.9 < min and not emerging": 1,
+      "ADX 14.6 < min and not emerging": 1,
+      "relVol 0.33 < min": 1,
+      "relVol 0.58 < min": 1,
+      "relVol 0.75 < min": 1,
+      "relVol 0.52 < min": 1,
+      "RSI 29.0 outside [45,74]": 1,
+      "relVol 0.54 < min": 1
     },
     "apiStats": {
       "requests": 306,
@@ -95,424 +105,14 @@
     "apiHealth": "DEGRADED",
     "dataFreshness": {
       "label": "LIVE",
-      "newestCandleCloseMs": 1794701699999,
-      "ageSeconds": 622.7
+      "newestCandleCloseMs": 1794725999999,
+      "ageSeconds": 179.2
     },
     "activeSignals": 0
   },
-  "lastSuccessfulScan": 1794702322687,
-  "nextExpectedScanAt": 1794702600000,
+  "lastSuccessfulScan": 1794726179159,
+  "nextExpectedScanAt": 1794726900000,
   "logs": [
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (4.429%)"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (4.395%)"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.48 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 20.9 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (3.591%)"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: HTF not aligned (4H=strong_bullish,1H=neutral)"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.58 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.92 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.76 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.80 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.86 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 17.3 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.20 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 22.7 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.85 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.79 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.74 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: ADX 14.2 < min and not emerging"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.64 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.98 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 1.10 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (3.276%)"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.83 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.45 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 25.1 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.67 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: risk model rejected: stop too wide (4.55x ATR)"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.53 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 63.6 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 24.8 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 40.7 outside [45,74]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 23.3 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 20.5 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: RSI 22.6 outside [26,55]"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: no CHoCH/BOS after sweep"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 1.04 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.91 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.50 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.84 < min"
-    },
-    {
-      "ts": 1794672256122,
-      "level": "info",
-      "msg": "no qualifying setups this scan -- zero signals generated"
-    },
-    {
-      "ts": 1794689102402,
-      "level": "info",
-      "msg": "scan start v1.0.0 scheduled=1794689100000 actual=1794689102400 (jitter 2.4s)"
-    },
-    {
-      "ts": 1794689112290,
-      "level": "info",
-      "msg": "universe: 100 symbols selected from 517 USDT perp candidates (binance-futures-mirror)"
-    },
-    {
-      "ts": 1794689125923,
-      "level": "info",
-      "msg": "klines collected for 20/100 symbols"
-    },
-    {
-      "ts": 1794689137354,
-      "level": "info",
-      "msg": "klines collected for 40/100 symbols"
-    },
-    {
-      "ts": 1794689149582,
-      "level": "info",
-      "msg": "klines collected for 60/100 symbols"
-    },
-    {
-      "ts": 1794689161381,
-      "level": "info",
-      "msg": "klines collected for 80/100 symbols"
-    },
-    {
-      "ts": 1794689172478,
-      "level": "info",
-      "msg": "klines collected for 100/100 symbols"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 93x: HTF conflict (4H+1H oppose)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 11x: no liquidity sweep in window"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 4x: 4H regime RANGING"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 4x: HTF not aligned (4H=bullish,1H=bearish)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: relVol 0.66 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: HTF not aligned (4H=neutral,1H=strong_bullish)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: RSI 21.8 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: RSI 19.3 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: RSI 20.5 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: RSI 17.6 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: ADX 14.1 < min and not emerging"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: RSI 20.7 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: relVol 0.74 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: RSI 24.0 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: HTF not aligned (4H=bearish,1H=neutral)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 2x: HTF not aligned (4H=neutral,1H=bearish)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.44 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: relVol 1.04 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: no displacement after structure event"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 25.7 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (4.643%)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 23.2 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.65 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 24.3 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.92 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (7.968%)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 22.6 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 23.6 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 24.2 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (5.891%)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: volatility out of band (7.095%)"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: relVol 0.88 < min"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 25.0 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 21.9 outside [26,55]"
-    },
-    {
-      "ts": 1794689172963,
-      "level": "info",
-      "msg": "rejected 1x: RSI 7.3 outside [26,55]"
-    },
     {
       "ts": 1794689172963,
       "level": "info",
@@ -1100,6 +700,416 @@
     },
     {
       "ts": 1794702382886,
+      "level": "info",
+      "msg": "no qualifying setups this scan -- zero signals generated"
+    },
+    {
+      "ts": 1794726179163,
+      "level": "info",
+      "msg": "scan start v1.0.0 scheduled=1794726000000 actual=1794726179159 (jitter 179.2s)"
+    },
+    {
+      "ts": 1794726190103,
+      "level": "info",
+      "msg": "universe: 100 symbols selected from 517 USDT perp candidates (binance-futures-mirror)"
+    },
+    {
+      "ts": 1794726199707,
+      "level": "info",
+      "msg": "klines collected for 20/100 symbols"
+    },
+    {
+      "ts": 1794726209487,
+      "level": "info",
+      "msg": "klines collected for 40/100 symbols"
+    },
+    {
+      "ts": 1794726219507,
+      "level": "info",
+      "msg": "klines collected for 60/100 symbols"
+    },
+    {
+      "ts": 1794726229319,
+      "level": "info",
+      "msg": "klines collected for 80/100 symbols"
+    },
+    {
+      "ts": 1794726239615,
+      "level": "info",
+      "msg": "klines collected for 100/100 symbols"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 94x: HTF conflict (4H+1H oppose)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 4x: relVol 0.29 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 4x: relVol 0.26 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 4x: HTF not aligned (4H=neutral,1H=neutral)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 4x: relVol 0.24 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 3x: relVol 0.30 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 3x: relVol 0.37 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 3x: 4H regime RANGING"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.38 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.35 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.40 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: HTF not aligned (4H=neutral,1H=strong_bullish)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: RSI 58.0 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.42 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.27 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.20 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.45 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: RSI 61.3 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.16 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: HTF not aligned (4H=bullish,1H=strong_bearish)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: relVol 0.22 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: RSI 60.7 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 2x: HTF not aligned (4H=neutral,1H=bullish)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.15 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.19 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.36 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: volatility out of band (6.503%)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.23 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: volatility out of band (4.616%)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: volatility out of band (3.934%)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.32 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 55.4 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: volatility out of band (6.862%)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 55.5 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 55.8 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 55.3 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: volatility out of band (4.925%)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 61.5 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 59.3 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 33.4 outside [45,74]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: RSI 58.2 outside [26,55]"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.31 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: ADX 12.3 < min and not emerging"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: volatility out of band (3.141%)"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.48 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.61 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: no liquidity sweep in window"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.66 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: ADX 10.5 < min and not emerging"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 1.13 < min"
+    },
+    {
+      "ts": 1794726240258,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.83 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 59.8 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 8.1 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.51 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 55.9 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 59.7 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 59.2 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 13.5 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.28 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 56.0 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 11.0 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 57.4 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 14.2 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 13.9 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 14.0 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 56.5 outside [26,55]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 12.9 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: ADX 14.6 < min and not emerging"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.33 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.58 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.75 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.52 < min"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: RSI 29.0 outside [45,74]"
+    },
+    {
+      "ts": 1794726240259,
+      "level": "info",
+      "msg": "rejected 1x: relVol 0.54 < min"
+    },
+    {
+      "ts": 1794726240259,
       "level": "info",
       "msg": "no qualifying setups this scan -- zero signals generated"
     }
